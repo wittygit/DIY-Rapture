@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf5kkjaf5kck"]
+
+[ext_resource type="PackedScene" uid="uid://b27qsckfun1jc" path="res://assets/models/cross.glb" id="1_vuo17"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkwl0"]
+albedo_color = Color(0.431084, 0.37451968, 0.1923571, 1)
+metallic = 0.45
+metallic_specular = 0.71
+roughness = 0.0
+clearcoat_enabled = true
+
+[node name="cross" instance=ExtResource("1_vuo17")]
+
+[node name="Cube" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_lkwl0")
