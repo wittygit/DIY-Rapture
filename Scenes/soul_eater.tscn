@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://bolotmbmoe3g8"]
+
+[ext_resource type="PackedScene" uid="uid://oju50vsjboyn" path="res://assets/models/soulEater.glb" id="1_xdxe7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xdxe7"]
+transparency = 1
+albedo_color = Color(0.23392558, 0.2339254, 0.23392549, 0.85882354)
+roughness = 0.0
+
+[node name="soulEater" instance=ExtResource("1_xdxe7")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(-0.28055137, -0.1370216, 0.0011737429)
+bones/0/rotation = Quaternion(-4.5131372e-08, 5.4151766e-08, -0.13737446, 0.99051917)
+bones/1/rotation = Quaternion(-3.2707728e-09, 2.5591609e-08, 0.054296248, 0.9985249)
+bones/1/scale = Vector3(1.0000001, 1.0000002, 1)
+bones/2/rotation = Quaternion(1.4480894e-09, -2.7222008e-08, 0.040725365, 0.99917036)
+bones/3/rotation = Quaternion(7.6372224e-08, 1.7025668e-07, -0.29127297, 0.95664)
+bones/4/rotation = Quaternion(-8.1164735e-08, -1.0705049e-07, 0.33189148, 0.9433176)
+bones/5/rotation = Quaternion(0.8780204, 0.02285027, 0.029522724, 0.477165)
+bones/5/scale = Vector3(0.99999994, 0.9999998, 0.99999946)
+bones/6/rotation = Quaternion(0.011837285, 0.018466616, -0.028599383, 0.99935025)
+bones/7/rotation = Quaternion(0.07306324, -0.016634585, -0.045060962, 0.99617004)
+bones/7/scale = Vector3(0.9999999, 0.9999998, 0.9999998)
+bones/8/rotation = Quaternion(0.071058884, -0.004704074, 0.026051918, 0.99712086)
+bones/9/rotation = Quaternion(0.09738427, -0.0038159033, 0.038967684, 0.9944764)
+bones/10/rotation = Quaternion(0.054276068, -8.1764256e-08, -1.4707486e-09, 0.998526)
+bones/11/rotation = Quaternion(0.16537577, -0.0030975512, 0.04317826, 0.9852801)
+bones/12/rotation = Quaternion(0.055798464, 0.0058878656, 0.029646039, 0.99798447)
+bones/13/rotation = Quaternion(0.04478828, 0.0019116579, 0.0042471504, 0.99898565)
+bones/14/rotation = Quaternion(0.23734468, 0.013820574, 0.00040425078, 0.9713272)
+bones/15/rotation = Quaternion(0.041333802, 0.021085681, -0.056266762, 0.997337)
+bones/16/rotation = Quaternion(0.059753023, 0.049996532, -0.09518555, 0.9924061)
+bones/17/rotation = Quaternion(0.15900779, -0.017308168, -0.3619758, 0.918363)
+bones/18/rotation = Quaternion(0.015632665, 0.112850636, 0.2462624, 0.9624839)
+bones/19/rotation = Quaternion(0.8781771, 0.008233676, -0.035461906, -0.47694826)
+bones/20/rotation = Quaternion(-0.022559317, -0.009938391, -0.04213765, 0.99880767)
+bones/21/rotation = Quaternion(-0.076885514, 0.0037593495, -0.105155, 0.9914722)
+bones/22/rotation = Quaternion(-0.054483406, -0.02511969, 0.0850129, 0.994572)
+bones/23/rotation = Quaternion(-0.09467077, -0.0075307395, 0.04516417, 0.9944551)
+bones/24/rotation = Quaternion(-0.05413008, 0.002707613, 0.0039694305, 0.99852234)
+bones/25/rotation = Quaternion(-0.16229986, -0.0072062663, 0.05359408, 0.9852586)
+bones/26/rotation = Quaternion(-0.05409342, 0.013349858, 0.03265422, 0.9979125)
+bones/27/rotation = Quaternion(-0.044492185, -0.003109449, 0.0066714888, 0.9989827)
+bones/28/rotation = Quaternion(-0.23704334, -0.007227572, 0.011959128, 0.97139865)
+bones/29/rotation = Quaternion(-0.042492468, 0.011187882, -0.05539739, 0.99749714)
+bones/30/rotation = Quaternion(-0.051853616, 0.018945064, -0.09970922, 0.99348396)
+bones/31/rotation = Quaternion(-0.25629345, -0.19995308, -0.30103758, 0.8964981)
+bones/32/rotation = Quaternion(0.051798552, 0.13338126, 0.24126004, 0.9598541)
+bones/33/position = Vector3(0.09260364, 0.03000162, 1.7044955)
+bones/34/position = Vector3(0.09094843, 0.08606479, -1.6793315)
+bones/35/rotation = Quaternion(-0.6459099, -0.034510765, 0.7332215, 0.20975184)
+bones/36/rotation = Quaternion(0.14906317, 0.060970042, 0.14343269, 0.9764681)
+bones/37/rotation = Quaternion(0.5109436, -0.058692522, 0.19954894, 0.8340696)
+bones/38/position = Vector3(-1.4652865, -1.6884882, -0.38891894)
+
+[node name="Mball_001" parent="Armature/Skeleton3D" index="0"]
+material_override = SubResource("StandardMaterial3D_xdxe7")
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "ArmatureAction_001_Armature_002"

@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dy3x5cf5tj01w"]
+[gd_scene load_steps=15 format=3 uid="uid://dy3x5cf5tj01w"]
 
 [ext_resource type="Shader" uid="uid://cdgqeys20y125" path="res://Scenes/posterize.gdshader" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://duoeyw5tb8up1" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://ckrib3d2rnwmh" path="res://assets/models/medieval_gothic_chair.glb" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://bolotmbmoe3g8" path="res://Scenes/soul_eater.tscn" id="4_jjvhh"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8gbba"]
 viewport_path = NodePath("ColorRect/SubViewport")
@@ -96,6 +97,12 @@ shape = SubResource("BoxShape3D_jjgbg")
 
 [node name="CharacterBody3D" parent="ColorRect/SubViewport" instance=ExtResource("1_jjgbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06638396, 0.9143747, 0.26910043)
+sens = null
+maxCamTilt = null
+minCamTilt = null
+crucifix_snapiness = null
+crucifix_speed = null
+look_snapiness = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82787514, -4.9981112)
@@ -103,3 +110,6 @@ mesh = SubResource("BoxMesh_bo1nx")
 
 [node name="Sketchfab_Scene" parent="." instance=ExtResource("3_8gbba")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51021254, 0.03486705, -3.2141626)
+
+[node name="soulEater" parent="." instance=ExtResource("4_jjvhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28571224, 0.6327883, -9.187755)
