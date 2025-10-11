@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dy3x5cf5tj01w"]
+[gd_scene load_steps=16 format=3 uid="uid://dy3x5cf5tj01w"]
 
 [ext_resource type="Shader" uid="uid://cdgqeys20y125" path="res://Scenes/posterize.gdshader" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://duoeyw5tb8up1" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://ckrib3d2rnwmh" path="res://assets/models/medieval_gothic_chair.glb" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://bolotmbmoe3g8" path="res://Scenes/soul_eater.tscn" id="4_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://dbq1chcqohu3h" path="res://Map-Generation/map.tscn" id="5_kry3j"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8gbba"]
 viewport_path = NodePath("ColorRect/SubViewport")
@@ -109,3 +110,5 @@ skeleton = NodePath("../../..")
 
 [node name="Sketchfab_Scene" parent="ColorRect/SubViewport" instance=ExtResource("3_8gbba")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51021254, 0.03486705, -3.2141626)
+
+[node name="Map" parent="ColorRect/SubViewport" instance=ExtResource("5_kry3j")]
