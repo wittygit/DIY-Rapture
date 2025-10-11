@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://duoeyw5tb8up1"]
+
+[ext_resource type="Script" uid="uid://r3g60x38cyi5" path="res://player_character.gd" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://0hor0j7agmju" path="res://Scenes/crucifix.tscn" id="2_cvnsp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_v0iea"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_v0iea")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1508267, 0)
+shape = SubResource("CapsuleShape3D_f60y1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_v0iea")
+skeleton = NodePath("../..")
+
+[node name="Tripod" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7351747, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Tripod"]
+
+[node name="crucifixPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2030189, 1.6290021, -0.18112963)
+
+[node name="crucifix" parent="crucifixPivot" instance=ExtResource("2_cvnsp")]

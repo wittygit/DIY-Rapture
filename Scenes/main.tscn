@@ -1,0 +1,89 @@
+[gd_scene load_steps=11 format=3 uid="uid://dy3x5cf5tj01w"]
+
+[ext_resource type="Shader" uid="uid://cdgqeys20y125" path="res://Scenes/posterize.gdshader" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://duoeyw5tb8up1" path="res://Scenes/player.tscn" id="1_jjgbg"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8gbba"]
+viewport_path = NodePath("ColorRect/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjvhh"]
+resource_local_to_scene = true
+shader = ExtResource("1_bo1nx")
+shader_parameter/SCREEN_TEXTURE = SubResource("ViewportTexture_8gbba")
+shader_parameter/zNear = 0.05
+shader_parameter/zFar = 100.0
+shader_parameter/enable_outline = false
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_thickness = 10.0
+shader_parameter/enable_color_limit = false
+shader_parameter/color_levels = 8
+shader_parameter/enable_color_palette = false
+shader_parameter/color1 = Color(1, 0.925, 0.839, 1)
+shader_parameter/color2 = Color(1, 0.831, 0.639, 1)
+shader_parameter/color3 = Color(1, 0.667, 0.369, 1)
+shader_parameter/color4 = Color(0.816, 0.506, 0.349, 1)
+shader_parameter/color5 = Color(0.553, 0.412, 0.478, 1)
+shader_parameter/color6 = Color(0.329, 0.306, 0.408, 1)
+shader_parameter/color7 = Color(0.125, 0.236, 0.337, 1)
+shader_parameter/color8 = Color(0.05, 0.169, 0.271, 1)
+shader_parameter/enable_dithering = true
+shader_parameter/dither_strength = 0.3
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
+
+[sub_resource type="Sky" id="Sky_bo1nx"]
+sky_material = SubResource("ProceduralSkyMaterial_jjgbg")
+
+[sub_resource type="Environment" id="Environment_8gbba"]
+background_mode = 2
+background_color = Color(0.27752772, 0.27752772, 0.27752772, 1)
+sky = SubResource("Sky_bo1nx")
+tonemap_mode = 2
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 0.77
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.4641
+volumetric_fog_albedo = Color(0.11119679, 0.11119687, 0.11119681, 1)
+volumetric_fog_emission = Color(0.06879826, 0.06879829, 0.068798244, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bo1nx"]
+size = Vector2(50, 50)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jjgbg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jjgbg"]
+size = Vector3(50, 1, 50)
+
+[node name="Main" type="Node"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_jjvhh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="ColorRect"]
+size = Vector2i(512, 288)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="ColorRect/SubViewport"]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="ColorRect/SubViewport"]
+environment = SubResource("Environment_8gbba")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ColorRect/SubViewport"]
+mesh = SubResource("PlaneMesh_bo1nx")
+skeleton = NodePath("../../..")
+
+[node name="Static" type="StaticBody3D" parent="ColorRect/SubViewport/MeshInstance3D"]
+physics_material_override = SubResource("PhysicsMaterial_jjgbg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ColorRect/SubViewport/MeshInstance3D/Static"]
+shape = SubResource("BoxShape3D_jjgbg")
+
+[node name="CharacterBody3D" parent="ColorRect/SubViewport" instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06638396, 0.9143747, 0.26910043)
