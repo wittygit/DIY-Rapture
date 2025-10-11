@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dy3x5cf5tj01w"]
+[gd_scene load_steps=13 format=3 uid="uid://dy3x5cf5tj01w"]
 
 [ext_resource type="Shader" uid="uid://cdgqeys20y125" path="res://Scenes/posterize.gdshader" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://duoeyw5tb8up1" path="res://Scenes/player.tscn" id="1_jjgbg"]
@@ -30,6 +30,8 @@ shader_parameter/enable_dithering = true
 shader_parameter/dither_strength = 0.3
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Sky" id="Sky_bo1nx"]
 sky_material = SubResource("ProceduralSkyMaterial_jjgbg")
@@ -46,6 +48,9 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.4641
 volumetric_fog_albedo = Color(0.11119679, 0.11119687, 0.11119681, 1)
 volumetric_fog_emission = Color(0.06879826, 0.06879829, 0.068798244, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bo1nx"]
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_bo1nx"]
 size = Vector2(50, 50)
@@ -78,6 +83,7 @@ shadow_enabled = true
 environment = SubResource("Environment_8gbba")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ColorRect/SubViewport"]
+material_override = SubResource("StandardMaterial3D_bo1nx")
 mesh = SubResource("PlaneMesh_bo1nx")
 skeleton = NodePath("../../..")
 
