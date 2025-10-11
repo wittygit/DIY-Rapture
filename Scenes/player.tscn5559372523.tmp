@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://duoeyw5tb8up1"]
+[gd_scene load_steps=4 format=3 uid="uid://duoeyw5tb8up1"]
 
 [ext_resource type="Script" uid="uid://r3g60x38cyi5" path="res://player_character.gd" id="1_v0iea"]
-[ext_resource type="PackedScene" uid="uid://cf6avovs8sqwg" path="res://Scenes/breath.tscn" id="2_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://0hor0j7agmju" path="res://Scenes/crucifix.tscn" id="2_cvnsp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
@@ -18,12 +17,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7351747, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Tripod"]
 
-[node name="Breath" parent="Tripod" instance=ExtResource("2_6t5aa")]
-
 [node name="crucifixPivot" type="Node3D" parent="Tripod"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2030189, -0.10617256, -0.18112963)
 
 [node name="crucifix" parent="Tripod/crucifixPivot" instance=ExtResource("2_cvnsp")]
 
 [node name="crucifixActivePos" type="Node3D" parent="Tripod"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09045811, -0.09404135, -0.3345814)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09404135, -0.3345814)

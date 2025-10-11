@@ -1,8 +1,12 @@
 extends CharacterBody3D
 class_name Player
+@onready var crucifix_pivot = $Tripod/crucifixPivot
 
-@onready var crucifix_pivot = $crucifixPivot
-@onready var crucifix = $crucifixPivot/crucifix
+@onready var crucifix : Crucifix = $Tripod/crucifixPivot/crucifix
+
+@onready var crucifix_active_pos = $Tripod/crucifixActivePos
+var crucifix_base_pos : Vector3
+
 
 
 @export var sens : Vector2 = Vector2(3, 2)
@@ -20,6 +24,7 @@ const FOV_MULT = 1.5
 var gravity : Vector3 = Vector3(0,-9.8,0)
 var speed = 4
 var is_moving : bool = false
+var is_crucifixing : bool = false
 
 var bobFreq = 2
 var bobAmp = 0.06
@@ -35,10 +40,8 @@ var look_force : Vector2
 const RAY_LENGTH : float = 2
 
 func _ready():
-	pass
+	crucifix_base_pos = crucifix_pivot.position
 
-func _process(delta):
-	print(is_moving)
 
 func _physics_process(delta):
 	
@@ -99,11 +102,24 @@ func handleInput():
 		is_moving = true
 	else:
 		is_moving = false
+	if Input.is_action_pressed("crucifix"):
+		is_crucifixing = true
+	else:
+		is_crucifixing = false
 
 
 func aimCrucifix(delta):
 	crucifix_pivot.global_rotation.y = (lerp_angle(crucifix_pivot.global_rotation.y,crucifix_global_goal_rot.y, crucifix_snapiness*delta))
 	crucifix.global_rotation.x = (lerp_angle(crucifix.global_rotation.x, crucifix_global_goal_rot.x, crucifix_snapiness*delta))
+	
+	if (is_crucifixing):
+		crucifix_pivot.position = (lerp(crucifix_pivot.position, crucifix_active_pos.position, crucifix_snapiness * delta))
+		crucifix.beamStrength = (lerp(crucifix.beamStrength,1.0, crucifix_snapiness * delta))
+		cam.fov = (lerp(cam.fov,baseFov/10., crucifix_snapiness/3 *delta))
+	else:
+		crucifix_pivot.position = (lerp(crucifix_pivot.position, crucifix_base_pos, crucifix_snapiness*delta))
+		crucifix.beamStrength = (lerp(crucifix.beamStrength,0.0, crucifix_snapiness * delta))
+		cam.fov = (lerp(cam.fov,float(baseFov), crucifix_snapiness * delta))
 
 func aimHead(delta : float):
 	global_rotation.y = (lerp_angle(global_rotation.y ,crucifix_global_goal_rot.y, look_snapiness*delta))

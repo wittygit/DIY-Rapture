@@ -15,7 +15,7 @@ uniform float facing_power : hint_range(0.1, 20.0) = 4.0;
 uniform float boost_along_y : hint_range(0.0, 10.0) = 1.0; // Boost is stronger near base (0) or tip (1)
 
 uniform float feather_sharpness : hint_range(0.1, 20.0) = 4.0;
-uniform float feather_intensity : hint_range(0.0, 1.0) = 1.0;
+uniform float feather_intensity : hint_range(0.0, 2.0) = 1.0;
 
 uniform float near_fade_start : hint_range(0.0, 50.0) = 0.01;
 uniform float near_fade_end : hint_range(0.0, 50.0) = 1.0;

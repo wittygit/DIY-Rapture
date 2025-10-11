@@ -6,11 +6,10 @@ class_name Crucifix
 
 var lit : bool = true
 var light_energy : float
-var battery_level : float = 100
 var usage_rate : float = 1
 
-
 var light_cone_material : Material
+var beamStrength : float
 
 @export var noise1 : Noise
 @export var noise2 : Noise
@@ -21,10 +20,14 @@ func _ready():
 
 func _process(delta):
 	if lit:
-		flicker(delta)
-	pass
+		beam()
+	else:
+		light_cone_material.set("shader_parameter/energy", 0)
 
-func flicker(delta : float):
-	var energy = clamp(1-pow(noise2.get_noise_1d(Time.get_ticks_msec()/50.),2)+2*noise1.get_noise_1d(Time.get_ticks_msec()/50.),0,1)
-	light.light_energy = energy
-	light_cone_material.set("shader_parameter/energy", energy)
+func beam():
+	light.light_energy = beamStrength * 2
+	light_cone_material.set("shader_parameter/energy", beamStrength)
+	light_cone_material.set("shader_parameter/feather_intensity", .433+.5/beamStrength)
+	light_cone_material.set("shader_parameter/feather_sharpness", 3*beamStrength)
+	
+	
