@@ -96,20 +96,16 @@ physics_material_override = SubResource("PhysicsMaterial_jjgbg")
 shape = SubResource("BoxShape3D_jjgbg")
 
 [node name="CharacterBody3D" parent="ColorRect/SubViewport" instance=ExtResource("1_jjgbg")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06638396, 0.9143747, 0.26910043)
-sens = null
-maxCamTilt = null
-minCamTilt = null
-crucifix_snapiness = null
-crucifix_speed = null
-look_snapiness = null
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="soulEater" parent="ColorRect/SubViewport" instance=ExtResource("4_jjvhh")]
+transform = Transform3D(-0.9596974, 0, -0.28103518, 0, 1, 0, 0.28103518, 0, -0.9596974, -0.28571224, 0.6327883, 12.774337)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="ColorRect/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82787514, -4.9981112)
 mesh = SubResource("BoxMesh_bo1nx")
+skeleton = NodePath("../../..")
 
-[node name="Sketchfab_Scene" parent="." instance=ExtResource("3_8gbba")]
+[node name="Sketchfab_Scene" parent="ColorRect/SubViewport" instance=ExtResource("3_8gbba")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51021254, 0.03486705, -3.2141626)
-
-[node name="soulEater" parent="." instance=ExtResource("4_jjvhh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28571224, 0.6327883, -9.187755)

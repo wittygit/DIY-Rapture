@@ -7,8 +7,6 @@ class_name Player
 @onready var crucifix_active_pos = $Tripod/crucifixActivePos
 var crucifix_base_pos : Vector3
 
-
-
 @export var sens : Vector2 = Vector2(3, 2)
 
 @export var maxCamTilt : float = 50
@@ -134,3 +132,4 @@ func raycast() -> Dictionary:
 	var query = PhysicsRayQueryParameters3D.create(origin, end)
 	
 	return space_state.intersect_ray(query)
+	

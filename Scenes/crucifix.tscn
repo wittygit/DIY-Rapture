@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://0hor0j7agmju"]
+[gd_scene load_steps=10 format=3 uid="uid://0hor0j7agmju"]
 
 [ext_resource type="Script" uid="uid://dmvx6f77c2t1a" path="res://Scenes/crucifix.gd" id="1_5y1l0"]
 [ext_resource type="Shader" uid="uid://cskuf63ilxju2" path="res://Scenes/light_cone.gdshader" id="1_qo4xy"]
@@ -37,6 +37,10 @@ height = 4.21
 radial_segments = 12
 rings = 0
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_od3dk"]
+height = 2.1630907
+radius = 0.3251953
+
 [node name="crucifix" type="Node3D"]
 script = ExtResource("1_5y1l0")
 noise1 = SubResource("FastNoiseLite_5y1l0")
@@ -53,6 +57,12 @@ omni_range = 0.1
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.02020201, 0.03063457, -2.1054533)
 material_override = SubResource("ShaderMaterial_5y1l0")
 mesh = SubResource("CylinderMesh_1tnsp")
+
+[node name="Area3D" type="Area3D" parent="Cone"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cone/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47096097, 1.8626451e-08)
+shape = SubResource("CylinderShape3D_od3dk")
 
 [node name="crucifixModel" parent="." instance=ExtResource("3_od3dk")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.020347401, 0, 0.025342047)
@@ -77,3 +87,5 @@ light_volumetric_fog_energy = 4.368
 shadow_enabled = true
 omni_range = 0.403
 omni_attenuation = 0.8
+
+[connection signal="body_entered" from="Cone/Area3D" to="." method="_on_area_3d_body_entered"]
