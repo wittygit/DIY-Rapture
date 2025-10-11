@@ -1,18 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://0hor0j7agmju"]
+[gd_scene load_steps=9 format=3 uid="uid://0hor0j7agmju"]
 
 [ext_resource type="Script" uid="uid://dmvx6f77c2t1a" path="res://Scenes/crucifix.gd" id="1_5y1l0"]
 [ext_resource type="Shader" uid="uid://cskuf63ilxju2" path="res://Scenes/light_cone.gdshader" id="1_qo4xy"]
 [ext_resource type="PackedScene" uid="uid://do05iqh3w8ghq" path="res://assets/models/arm_rig.fbx" id="3_1tnsp"]
+[ext_resource type="PackedScene" uid="uid://dd2woaq3qa5ou" path="res://Scenes/crucifix.glb" id="3_od3dk"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_5y1l0"]
 frequency = 0.0188
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1tnsp"]
 frequency = 0.0075
-
-[sub_resource type="BoxMesh" id="BoxMesh_p4cgw"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_qo4xy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5y1l0"]
 render_priority = 0
@@ -28,10 +25,10 @@ shader_parameter/feather_intensity = 0.9330000443175
 shader_parameter/near_fade_start = 20.00000095
 shader_parameter/near_fade_end = 7.1670003404325
 shader_parameter/far_fade_start = 24.00000113674012
-shader_parameter/far_fade_end = 60.000002846740124
+shader_parameter/far_fade_end = 60.00000284674013
 shader_parameter/max_brightness = 33.50000154375
 shader_parameter/depth_feather_enabled = false
-shader_parameter/depth_fade_distance = 1.9600000924014798
+shader_parameter/depth_fade_distance = 1.96000009240148
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_1tnsp"]
 top_radius = 0.0
@@ -45,20 +42,23 @@ script = ExtResource("1_5y1l0")
 noise1 = SubResource("FastNoiseLite_5y1l0")
 noise2 = SubResource("FastNoiseLite_1tnsp")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.2744246e-09, 0, -0.013018127, 0, 0.22196928, 0, 0.029155435, 0, -5.6904037e-10, 0, 0, 0)
-mesh = SubResource("BoxMesh_p4cgw")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.1730218e-09, 0, -0.14091909, 0, 0.025160134, 0, 0.026835611, 0, -6.159769e-09, 0, 0, 0)
-mesh = SubResource("BoxMesh_qo4xy")
+[node name="insideLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.020760413, 0.033256292, 0.026884973)
+light_energy = 4.287
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+omni_range = 0.1
 
 [node name="Cone" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -8.714199e-05, 0.0020766705, -2.1054533)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.02020201, 0.03063457, -2.1054533)
 material_override = SubResource("ShaderMaterial_5y1l0")
 mesh = SubResource("CylinderMesh_1tnsp")
 
+[node name="crucifixModel" parent="." instance=ExtResource("3_od3dk")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.020347401, 0, 0.025342047)
+
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.022167869, 0.03799347, 0)
 light_color = Color(0.9983615, 0.9999998, 0.9044723, 1)
 light_energy = 14.316
 light_indirect_energy = 4.262
@@ -68,8 +68,10 @@ spot_angle = 13.220135
 [node name="arm_rig" parent="." instance=ExtResource("3_1tnsp")]
 transform = Transform3D(-0.15875514, -0.29825616, 0.037948307, 0, 0.042913586, 0.33728093, -0.3006606, 0.15748553, -0.020037508, 0.404065, -0.06966768, 0.39847624)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="outsideLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.16476777)
 light_color = Color(1, 1, 0.9372549, 1)
+light_energy = 0.085
 light_indirect_energy = 1.632
 light_volumetric_fog_energy = 4.368
 shadow_enabled = true
