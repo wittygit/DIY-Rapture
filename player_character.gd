@@ -13,16 +13,18 @@ var crucifix_base_pos : Vector3
 
 @export var maxCamTilt : float = 50
 @export var minCamTilt : float = -50
-@export var crucifix_snapiness : float = 7
+@export var crucifix_snapiness : float = 8
 @export var crucifix_speed : float = 6
 @export var look_snapiness : float = 5
 
 @onready var tripod = $Tripod
 @onready var cam = $Tripod/Camera3D
 
-const FOV_MULT = 1.5
+const FOV_MULT: float = 1.5
 var gravity : Vector3 = Vector3(0,-9.8,0)
-var speed = 4
+var speed : float = 4
+var walking_speed: float = 4
+var crucifixing_speed : float = 1.5
 var is_moving : bool = false
 var is_crucifixing : bool = false
 
@@ -33,9 +35,7 @@ var baseFov = 80
 
 var crucifix_global_goal_rot : Vector3 = Vector3.FORWARD
 
-
 var look_force : Vector2
-
 
 const RAY_LENGTH : float = 2
 
@@ -116,10 +116,12 @@ func aimCrucifix(delta):
 		crucifix_pivot.position = (lerp(crucifix_pivot.position, crucifix_active_pos.position, crucifix_snapiness * delta))
 		crucifix.beamStrength = (lerp(crucifix.beamStrength,1.0, crucifix_snapiness * delta))
 		cam.fov = (lerp(cam.fov,baseFov/10., crucifix_snapiness/3 *delta))
+		speed = crucifixing_speed
 	else:
 		crucifix_pivot.position = (lerp(crucifix_pivot.position, crucifix_base_pos, crucifix_snapiness*delta))
 		crucifix.beamStrength = (lerp(crucifix.beamStrength,0.0, crucifix_snapiness * delta))
 		cam.fov = (lerp(cam.fov,float(baseFov), crucifix_snapiness * delta))
+		speed = walking_speed
 
 func aimHead(delta : float):
 	global_rotation.y = (lerp_angle(global_rotation.y ,crucifix_global_goal_rot.y, look_snapiness*delta))

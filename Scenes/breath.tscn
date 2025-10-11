@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cf6avovs8sqwg"]
+[gd_scene load_steps=7 format=3 uid="uid://cf6avovs8sqwg"]
 
 [ext_resource type="Texture2D" uid="uid://w3kl416si75" path="res://assets/breath.png" id="1_hop0j"]
+[ext_resource type="Script" uid="uid://i1f17lyxlma5" path="res://Scenes/breath.gd" id="1_ji2wv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ji2wv"]
 transparency = 1
@@ -16,11 +17,12 @@ text = "breath"
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Breath" type="Node3D"]
+script = ExtResource("1_ji2wv")
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_ji2wv")
 amount = 2
-lifetime = 10.209999999999999
+lifetime = 10.21
 mesh = SubResource("TextMesh_ji2wv")
 direction = Vector3(1, 0, -1)
 spread = 0.0
