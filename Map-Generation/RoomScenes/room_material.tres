@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cpdkdimmgpkt"]
+
+[ext_resource type="Texture2D" uid="uid://qeit7uak1ffe" path="res://assets/textures/cinder_block_texture.jpg" id="1_fscn0"]
+
+[resource]
+resource_name = "RoomMaterial"
+cull_mode = 2
+albedo_color = Color(0.2860863, 0.27376956, 0.2798107, 1)
+albedo_texture = ExtResource("1_fscn0")

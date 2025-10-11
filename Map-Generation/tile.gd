@@ -19,5 +19,8 @@ func Cement():
 	if up == -1: up = 0
 	if down == -1: down = 0
 
+func Print():
+	print(str(forward) + ' ' + str(back) + ' ' + str(left) + ' ' + str(right))
+
 	
 	

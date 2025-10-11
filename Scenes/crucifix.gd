@@ -32,4 +32,4 @@ func beam():
 	
 func _on_area_3d_body_entered(body):
 	if body is SoulEater and beamStrength > 0.3:
-		await body.Wither(3)
+		body.Wither(3)

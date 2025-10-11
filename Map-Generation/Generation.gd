@@ -51,7 +51,6 @@ func generateSurrounding(pos : Vector3i,tile : Tile, depth : int):
 			if map.has(tilePosition): continue
 			var newTile : Tile = generateDeadEnd(tilePosition)
 			map[tilePosition] = newTile
-	
 
 func generateDeadEnd(tilePos : Vector3i) -> Tile:
 	var tile : Tile = Tile.new()
@@ -72,7 +71,7 @@ func generateDeadEnd(tilePos : Vector3i) -> Tile:
 	if(left_tile != null):
 		tile.left = left_tile.right
 		
-	#tile.Cement()
+	tile.Cement()
 	return tile
 
 
@@ -96,31 +95,38 @@ func generateTile(tilePos : Vector3i)-> Tile:
 		tile.left = left_tile.right
 	
 	tile = randomizeTile(tile, tilePos)
-	#tile.Cement()
+	tile.Cement()
 	return tile
 
 func randomizeTile(tile : Tile, pos :Vector3i) -> Tile:
 	var openings = randi_range(1,2)
 	var iterations : int = 0
-	while countOpenings(tile)<= openings && iterations < 2:
+	while countOpenings(tile)<= openings && iterations < 6:
 		var opening = pickRandomOpening(4)
 		if opening == directions.FORWARD:
 			if tile.forward == -1:
 				tile.forward = 1
+			else:
+				iterations+=1
 			continue;
 		if opening == directions.BACK:
 			if tile.back == -1 && pos.z>0:
 				tile.back = 1
+			else:
+				iterations+=1
 			continue;
 		if opening == directions.LEFT:
 			if tile.left == -1:
 				tile.left = 1
+			else:
+				iterations+=1
 			continue;
 		if opening == directions.RIGHT:
 			if tile.right == -1:
 				tile.right = 1
+			else:
+				iterations+=1
 			continue;
-		iterations+=1
 	return tile
 
 func pickRandomOpening(range : int) -> int:
@@ -149,6 +155,7 @@ func printMap(height:int,width:int,level:int):
 
 func printTile(pos : Vector3i) -> String:
 	var tile = map.get(pos)
+	
 	if tile == null:
 		return "    "
 	var tileString: String = ""
