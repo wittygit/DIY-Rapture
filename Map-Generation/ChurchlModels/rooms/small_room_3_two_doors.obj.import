@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bf0fvx8tfichx"
+path="res://.godot/imported/small_room_3_two_doors.obj-e4bf8e5f886029717eca995c9e9ab21c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/small_room_3_two_doors.obj-e4bf8e5f886029717eca995c9e9ab21c.mesh"]
+
+source_file="res://Map-Generation/ChurchlModels/rooms/small_room_3_two_doors.obj"
+dest_files=["res://.godot/imported/small_room_3_two_doors.obj-e4bf8e5f886029717eca995c9e9ab21c.mesh", "res://.godot/imported/small_room_3_two_doors.obj-e4bf8e5f886029717eca995c9e9ab21c.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
