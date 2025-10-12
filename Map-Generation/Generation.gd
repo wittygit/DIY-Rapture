@@ -2,17 +2,20 @@ extends Node3D
 
 
 var map : Dictionary
-const MAX_DEPTH : int = 2
+var MAX_DEPTH : int = 3
 const ROOM_WIDTH : int = 22
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	generateMapLevel()
 	await instantiateMap()
+	MAX_DEPTH = 4
 	generateMapLevel()
 	await instantiateMap()
+	MAX_DEPTH = 5
 	generateMapLevel()
 	await instantiateMap()
+	MAX_DEPTH = 6
 	generateMapLevel()
 	await instantiateMap()
 

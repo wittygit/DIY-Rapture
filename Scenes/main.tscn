@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dy3x5cf5tj01w"]
+[gd_scene load_steps=13 format=3 uid="uid://dy3x5cf5tj01w"]
 
 [ext_resource type="Shader" uid="uid://cdgqeys20y125" path="res://Scenes/posterize.gdshader" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://duoeyw5tb8up1" path="res://Scenes/player.tscn" id="1_jjgbg"]
+[ext_resource type="Texture2D" uid="uid://bsf6mgeuymilu" path="res://assets/textures/sky_27_cubemap_2k/sky_27_2k.png" id="2_6bp64"]
 [ext_resource type="PackedScene" uid="uid://bolotmbmoe3g8" path="res://Scenes/soul_eater.tscn" id="5_21xkr"]
 [ext_resource type="PackedScene" uid="uid://dbq1chcqohu3h" path="res://Map-Generation/map.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://0o6mxjie1fsh" path="res://Scenes/church.tscn" id="6_6bp64"]
@@ -14,6 +15,9 @@ viewport_path = NodePath("ColorRect/SubViewport")
 resource_local_to_scene = true
 shader = ExtResource("1_bo1nx")
 shader_parameter/SCREEN_TEXTURE = SubResource("ViewportTexture_8gbba")
+shader_parameter/radius = 0.0
+shader_parameter/speed = 6.1030002898925
+shader_parameter/effect_color = Color(0.039215688, 0.07450981, 0.05490196, 0.6313726)
 shader_parameter/zNear = 0.05
 shader_parameter/zFar = 100.0
 shader_parameter/enable_outline = false
@@ -33,14 +37,15 @@ shader_parameter/color8 = Color(0.05, 0.169, 0.271, 1)
 shader_parameter/enable_dithering = true
 shader_parameter/dither_strength = 0.5870000278825
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
-sky_top_color = Color(0, 0, 0, 1)
-sky_horizon_color = Color(0, 0, 0, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_344ge"]
+panorama = ExtResource("2_6bp64")
 
 [sub_resource type="Sky" id="Sky_bo1nx"]
-sky_material = SubResource("ProceduralSkyMaterial_jjgbg")
+resource_local_to_scene = true
+sky_material = SubResource("PanoramaSkyMaterial_344ge")
 
 [sub_resource type="Environment" id="Environment_8gbba"]
+resource_local_to_scene = true
 background_mode = 2
 background_color = Color(0.27752772, 0.27752772, 0.27752772, 1)
 sky = SubResource("Sky_bo1nx")
@@ -48,7 +53,6 @@ tonemap_mode = 2
 glow_enabled = true
 glow_normalized = true
 glow_bloom = 0.77
-fog_enabled = true
 fog_light_color = Color(0.2718512, 0.24590918, 0.19114438, 1)
 volumetric_fog_density = 0.4641
 volumetric_fog_albedo = Color(0.11119679, 0.11119687, 0.11119681, 1)

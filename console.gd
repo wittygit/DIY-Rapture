@@ -16,6 +16,6 @@ func _process(delta: float) -> void:
 func SendMessage(message :String, duration :float = 3.0, newColor : Color = Color.BISQUE):
 	label.text = message
 	label.self_modulate = newColor
-	if tween: tween.stop()
+	if tween: tween.free()
 	var tween = get_tree().create_tween()
 	tween.tween_property(label, "self_modulate", Color.TRANSPARENT, duration).set_ease(Tween.EASE_IN)

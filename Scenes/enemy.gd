@@ -15,6 +15,7 @@ var distance : float
 var targetPos : Vector3
 var raycastDistance = 400
 
+
 func _ready():
 	targetPos = position
 	contact_monitor = true
@@ -45,11 +46,15 @@ func Wither(seconds : float):
 	await get_tree().create_timer(seconds).timeout
 	animation_player.play("chasing", 0.25)
 	is_withered = false
-	
+
+var hit : bool = false
 func _on_body_entered(body):
 	if body is Player:
-		get_tree().change_scene_to_file("res://Scenes/death.tscn")
-		
+		hit = true
+		body.Damage(look_direction)
+
+
+
 func raycast() -> Dictionary:
 	var space_state = get_world_3d().direct_space_state
 	var origin = global_position+ Vector3(0, .5, 0)
@@ -58,3 +63,8 @@ func raycast() -> Dictionary:
 	query.exclude = [self]
 	
 	return space_state.intersect_ray(query)
+
+
+func _on_body_exited(body: Node) -> void:
+	if body is Player:
+		hit = false

@@ -3,6 +3,11 @@ render_mode unshaded;
 
 uniform sampler2D SCREEN_TEXTURE : source_color, repeat_disable, filter_nearest;
 
+uniform float radius = 1.0;
+uniform float speed : hint_range(0.0, 10.0) = 1.0;
+uniform vec4 effect_color : source_color = vec4(0.251, 0.0, 0.0, 1.0);
+
+
 uniform float zNear = 0.05;
 uniform float zFar = 100;
 
@@ -63,6 +68,31 @@ float depth(sampler2D depth_texture, vec2 screen_uv, mat4 inv_proj_mat, in vec3 
 	return scaled_depth;
 }
 
+
+
+float snoise(vec3 uv, float res)
+{
+    const vec3 s = vec3(1e0, 1e2, 1e3);
+    uv *= res;
+
+    vec3 uv0 = floor(mod(uv, res)) * s;
+    vec3 uv1 = floor(mod(uv + vec3(1.0), res)) * s;
+
+    vec3 f = fract(uv);
+    f = f * f * (3.0 - 2.0 * f);
+
+    vec4 v = vec4(uv0.x + uv0.y + uv0.z, uv1.x + uv0.y + uv0.z,
+                  uv0.x + uv1.y + uv0.z, uv1.x + uv1.y + uv0.z);
+
+    vec4 r = fract(sin(v * 1e-1) * 1e3);
+    float r0 = mix(mix(r.x, r.y, f.x), mix(r.z, r.w, f.x), f.y);
+
+    r = fract(sin((v + uv1.z - uv0.z) * 1e-1) * 1e3);
+    float r1 = mix(mix(r.x, r.y, f.x), mix(r.z, r.w, f.x), f.y);
+
+    return mix(r0, r1, f.z) * 2.0 - 1.0;
+}
+
 // (2)
 // Next, we perform the sobel operation on the scaled_depth value.
 // This is half of the process for the outlines, giving us most of the outline effect,
@@ -119,6 +149,26 @@ float dither(vec2 position, float brightness)
 }
 
 void fragment() {
+	vec2 p = (UV - 0.5) * radius; 
+
+    float color = 3.0 - (3.0 * length(2.0 * p));
+
+    vec3 coord = vec3(atan(p.x, p.y) / 6.2832 + 0.5, length(p) * 0.4, 0.5);
+
+    float time = -TIME / speed;
+    for (int i = 1; i <= 7; i++)
+    {
+        float power = pow(2.0, float(i));
+        color += (1.5 / power) * snoise(coord + vec3(0.0, -time * 0.05, time * 0.01), power * 16.0);
+    }
+	float edge_start = effect_color.a * 0.5;
+	float edge_end   = 1.0;                  
+	float alpha = (1.0 - smoothstep(edge_start, edge_end, color)) * 0.7;
+
+
+	alpha = pow(alpha, 1.6); 
+
+    vec4 vignette = vec4((color - (1.0 - effect_color.r))*alpha, (color - (1.0 - effect_color.g))*alpha,( color - (1.0 - effect_color.b))*alpha, alpha);
 	// Called for every pixel the material is visible on.
 	vec3 palette[8];
 		palette[0] = color1.rgb;
@@ -178,7 +228,7 @@ void fragment() {
 	
 	
 	//The combined results of all of the effects are then output to the quad's albedo, displaying them on the screen.
-	COLOR = vec4(final_color,1.0);
+	COLOR = vec4(final_color,1.0) + vignette;
 }
 
 void light() {

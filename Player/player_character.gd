@@ -2,6 +2,7 @@ extends CharacterBody3D
 class_name Player
 @onready var crucifix_pivot = $Tripod/crucifixPivot
 @onready var bell: AudioStreamPlayer = $AudioStreamPlayer
+@onready var hurt: AudioStreamPlayer = $AudioStreamPlayer2
 
 @onready var crucifix : Crucifix = $Tripod/crucifixPivot/crucifix
 
@@ -19,6 +20,7 @@ var crucifix_base_pos : Vector3
 
 @onready var tripod = $Tripod
 @onready var cam = $Tripod/Camera3D
+@onready var color_rect: ColorRect = $"../.."
 
 const FOV_MULT: float = 1.5
 var gravity : Vector3 = Vector3(0,-9.8,0)
@@ -38,6 +40,8 @@ var current_message = 0
 var message_duration : float = 6
 var time : float = 0
 var crucifix_global_goal_rot : Vector3 = Vector3.FORWARD
+var health: float = 20
+var health_smoothed : float
 
 var look_force : Vector2
 
@@ -50,7 +54,12 @@ func _ready():
 
 
 func _physics_process(delta):
+	health_smoothed = lerp(health_smoothed,health,delta*20)
+	color_rect.material.set("shader_parameter/radius", 1-health_smoothed/20)
+	color_rect.material.set("shader_parameter/speed", 1-health_smoothed/20)
 	time += delta
+	health+=delta/2
+	health = min(health,20)
 	if time > message_duration:
 		if current_message<messages.size():
 			console.SendMessage(messages[current_message], message_duration, Color.BLACK)
@@ -111,6 +120,20 @@ func NextFloor():
 	console.SendMessage("Floor "+str(current_floor), 5)
 	bell.playing = true
 
+func Damage( impulse : Vector3):
+	health-=5
+	if health >= -5: 
+		hurt.playing = true
+		velocity+=impulse*3
+	if health< 0 && health>-5: Die()
+	
+func Die():
+	
+	health = -100
+	bell.playing = true
+	console.SendMessage("Left behind, forgotten.", 3.0, Color.DARK_RED)
+
+	
 func handleInput():
 	look_force.x = Input.get_axis("lookRight", "lookLeft")
 	look_force.y = Input.get_axis("lookUp", "lookDown")
