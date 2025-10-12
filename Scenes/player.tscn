@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://duoeyw5tb8up1"]
 
-[ext_resource type="Script" path="res://Player/player_character.gd" id="1_6t5aa"]
+[ext_resource type="Script" uid="uid://r3g60x38cyi5" path="res://Player/player_character.gd" id="1_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://cf6avovs8sqwg" path="res://Scenes/breath.tscn" id="2_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://0hor0j7agmju" path="res://Scenes/crucifix.tscn" id="2_cvnsp"]
 

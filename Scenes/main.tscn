@@ -5,8 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://ckrib3d2rnwmh" path="res://assets/models/medieval_gothic_chair.glb" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://bolotmbmoe3g8" path="res://Scenes/soul_eater.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://dbq1chcqohu3h" path="res://Map-Generation/map.tscn" id="5_kry3j"]
+<<<<<<< Updated upstream
 [ext_resource type="PackedScene" uid="uid://1gbc61b8trwi" path="res://Scenes/console.tscn" id="6_21xkr"]
 [ext_resource type="ArrayMesh" uid="uid://cid1el65ls7b2" path="res://Map-Generation/ChurchlModels/rooms/church/church.obj" id="7_6bp64"]
+=======
+[ext_resource type="PackedScene" path="res://Scenes/console.tscn" id="6_21xkr"]
+>>>>>>> Stashed changes
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8gbba"]
 viewport_path = NodePath("ColorRect/SubViewport")
