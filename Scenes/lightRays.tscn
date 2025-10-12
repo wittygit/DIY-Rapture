@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://3chd1nmiudnm"]
+
+[ext_resource type="Shader" uid="uid://cskuf63ilxju2" path="res://Scenes/light_cone.gdshader" id="1_jy880"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eeelv"]
+render_priority = 0
+shader = ExtResource("1_jy880")
+shader_parameter/energy = 1.0
+shader_parameter/base_color = Color(0.999999, 0.989036, 0.6125305, 1)
+shader_parameter/falloff_power = 13.90600065727512
+shader_parameter/facing_boost = 10.0
+shader_parameter/facing_power = 4.5000002104901196
+shader_parameter/boost_along_y = 1.1950000567625
+shader_parameter/feather_sharpness = 3.41600015900012
+shader_parameter/feather_intensity = 0.9330000443175
+shader_parameter/near_fade_start = 20.00000095
+shader_parameter/near_fade_end = 7.1670003404325
+shader_parameter/far_fade_start = 24.00000113674012
+shader_parameter/far_fade_end = 73.77900350124261
+shader_parameter/max_brightness = 28.4310013029725
+shader_parameter/depth_feather_enabled = false
+shader_parameter/depth_fade_distance = 1.96000009240148
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_71f2a"]
+top_radius = 0.0
+bottom_radius = 3.036
+height = 19.361
+radial_segments = 12
+rings = 0
+
+[node name="Cone" type="MeshInstance3D"]
+material_override = SubResource("ShaderMaterial_eeelv")
+mesh = SubResource("CylinderMesh_71f2a")

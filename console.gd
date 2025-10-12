@@ -1,10 +1,11 @@
 extends Control
+class_name Console
 @onready var label: RichTextLabel = $RichTextLabel
 var tween : Tween
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SendMessage("Ahoy! You Started, matey!", 3.0, Color.DARK_RED)
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,4 +18,4 @@ func SendMessage(message :String, duration :float = 3.0, newColor : Color = Colo
 	label.self_modulate = newColor
 	if tween: tween.stop()
 	var tween = get_tree().create_tween()
-	tween.tween_property(label, "modulate", Color.TRANSPARENT, duration).set_ease(Tween.EASE_IN)
+	tween.tween_property(label, "self_modulate", Color.TRANSPARENT, duration).set_ease(Tween.EASE_IN)

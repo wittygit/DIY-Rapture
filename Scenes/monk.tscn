@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://bhefb013fbjt4"]
+[gd_scene load_steps=7 format=4 uid="uid://bhefb013fbjt4"]
 
 [ext_resource type="Texture2D" uid="uid://cau43em7y3agf" path="res://assets/models/mendicant_monk_low_poly/textures/monk_baseColor.png" id="1_831lw"]
 [ext_resource type="Script" uid="uid://c0fq61s8ros0a" path="res://Scenes/monk.gd" id="1_xjrfr"]
-[ext_resource type="Shader" uid="uid://cskuf63ilxju2" path="res://Scenes/light_cone.gdshader" id="2_xjrfr"]
+[ext_resource type="PackedScene" uid="uid://3chd1nmiudnm" path="res://Scenes/lightRays.tscn" id="3_xjrfr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6cfgd"]
 resource_name = "monk"
@@ -44,32 +44,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_eceb4")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eeelv"]
-render_priority = 0
-shader = ExtResource("2_xjrfr")
-shader_parameter/energy = 1.0
-shader_parameter/base_color = Color(0.9983615, 0.9999998, 0.9044723, 1)
-shader_parameter/falloff_power = 9.32000043944012
-shader_parameter/facing_boost = 10.0
-shader_parameter/facing_power = 4.5000002104901196
-shader_parameter/boost_along_y = 1.1950000567625
-shader_parameter/feather_sharpness = 3.41600015900012
-shader_parameter/feather_intensity = 0.9330000443175
-shader_parameter/near_fade_start = 20.00000095
-shader_parameter/near_fade_end = 7.1670003404325
-shader_parameter/far_fade_start = 24.00000113674012
-shader_parameter/far_fade_end = 73.77900350124261
-shader_parameter/max_brightness = 28.4310013029725
-shader_parameter/depth_feather_enabled = false
-shader_parameter/depth_fade_distance = 1.96000009240148
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_71f2a"]
-top_radius = 0.0
-bottom_radius = 3.036
-height = 19.361
-radial_segments = 12
-rings = 0
-
 [node name="Monk" type="Node3D"]
 script = ExtResource("1_xjrfr")
 
@@ -85,6 +59,5 @@ transform = Transform3D(1, 0, 0, 0, -4.3711392e-08, -1, 0, 1, -4.3711392e-08, 0,
 mesh = SubResource("ArrayMesh_ckiy1")
 skeleton = NodePath("")
 
-[node name="Cone" type="MeshInstance3D" parent="."]
-material_override = SubResource("ShaderMaterial_eeelv")
-mesh = SubResource("CylinderMesh_71f2a")
+[node name="Cone" parent="." instance=ExtResource("3_xjrfr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0082457, 0)

@@ -6,6 +6,7 @@ class_name Player
 
 @onready var crucifix_active_pos = $Tripod/crucifixActivePos
 var crucifix_base_pos : Vector3
+@onready var console: Console = $"../../Console"
 
 @export var sens : Vector2 = Vector2(3, 2)
 
@@ -31,6 +32,10 @@ var bobAmp = 0.06
 var bobTime: float = 0
 var baseFov = 80
 
+var messages = ["The Rapture begins.","I have been Foresaken.","I must ascend through the darkness to reach The Light.","Reach the fifth floor to Rapture yourself and rejoin your Order."]
+var current_message = 0
+var message_duration : float = 5
+var time : float = 0
 var crucifix_global_goal_rot : Vector3 = Vector3.FORWARD
 
 var look_force : Vector2
@@ -42,6 +47,14 @@ func _ready():
 
 
 func _physics_process(delta):
+	time += delta
+	if time > message_duration:
+		if current_message<messages.size():
+			console.SendMessage(messages[current_message], message_duration, Color.BLACK)
+			current_message+=1
+			time = 0
+
+	
 	
 	handleInput()
 	crucifix_global_goal_rot.y += look_force.x*delta*sens.x
@@ -52,7 +65,6 @@ func _physics_process(delta):
 	aimCrucifix(delta)
 	aimHead(delta)
 	
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += gravity * delta
 

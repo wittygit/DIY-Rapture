@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://llrxg8yuaso3"]
+[gd_scene load_steps=3 format=3 uid="uid://1gbc61b8trwi"]
 
 [ext_resource type="Script" uid="uid://buksnuq1q608h" path="res://console.gd" id="1_2kium"]
 
 [sub_resource type="SystemFont" id="SystemFont_j4mgr"]
 font_names = PackedStringArray("Fantasy")
+subpixel_positioning = 0
 
 [node name="Console" type="Control"]
 layout_mode = 3
@@ -15,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_2kium")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
