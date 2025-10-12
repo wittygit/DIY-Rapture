@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbsqxsle31m3d"]
+
+[ext_resource type="Script" uid="uid://dff4yi0ch80o7" path="res://Scenes/restart.gd" id="1_7g6v7"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7g6v7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.051793262, 0.024148813, 0.0037220172, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 70
+text = "Press any right button to restart
+
+-Credits-
+Programming - Simon Ames
+Programming - Witt Wellons
+Character Modeling/Animation - Armon Kaul
+Environment Modeling - Harrison
+Post-Rapture Song - Al"
+horizontal_alignment = 1
+vertical_alignment = 1

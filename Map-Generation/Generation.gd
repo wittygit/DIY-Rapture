@@ -2,22 +2,27 @@ extends Node3D
 
 
 var map : Dictionary
-var MAX_DEPTH : int = 3
+var MAX_DEPTH : int = 5
 const ROOM_WIDTH : int = 22
+var spawn_rate: float = .1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	generateMapLevel()
 	await instantiateMap()
-	MAX_DEPTH = 4
-	generateMapLevel()
-	await instantiateMap()
+	spawn_rate +=.2
 	MAX_DEPTH = 5
 	generateMapLevel()
 	await instantiateMap()
-	MAX_DEPTH = 6
+	MAX_DEPTH = 7
+	spawn_rate +=.2
 	generateMapLevel()
 	await instantiateMap()
+	MAX_DEPTH = 9
+	spawn_rate +=.2
+	generateMapLevel()
+	await instantiateMap()
+	generateChurch()
 
 
 enum directions {
@@ -34,6 +39,7 @@ const FORWARD_LEFT_RIGHT = preload("uid://cc5i1n1q0jxkm")
 const FLOOR = preload("uid://drnavsturj7tx")
 const FORWARD_BACK = preload("uid://decxof6mo5tym")
 const STAIRS = preload("uid://bfrkqssu0yo6j")
+const SOUL_EATER = preload("uid://bolotmbmoe3g8")
 
 var RoomScenes : Dictionary = {
 	Tile.new(1,1,0,0,0,0).Value(): [FORWARD_BACK,0],
@@ -55,8 +61,24 @@ var RoomScenes : Dictionary = {
 	Tile.new(0,0,1,0,0,0,true).Value(): [STAIRS,-PI/2],
 	Tile.new(0,0,0,1,0,0,true).Value(): [STAIRS,PI/2]
 }
+const FINISH = preload("uid://de1n51pmw2tcw")
 
-
+func generateChurch():
+	var finish = FINISH.instantiate()
+	add_child(finish)
+	finish.position = Vector3(nextLevelSeed)*ROOM_WIDTH*Vector3(-1,.8,1)
+	if(nextLevelOrientation.back ==1): 
+		finish.rotation.y = PI/2
+		finish.position+=Vector3(0,0,-1)*22
+	if(nextLevelOrientation.forward ==1): 
+		finish.rotation.y = -PI/2
+		finish.position+=Vector3(0,0,1)*22
+	if(nextLevelOrientation.left ==1): 
+		finish.rotation.y = 0.0
+		finish.position+=Vector3(1,0,0)*22
+	if(nextLevelOrientation.right ==1): 
+		finish.rotation.y = PI
+		finish.position+=Vector3(-1,0,0)*22
 
 func instantiateMap():
 	for pos in map:
@@ -80,6 +102,10 @@ func instantiateTile(tile : Tile, pos : Vector3i):
 	floor.position = newPos
 	room.position = newPos
 	room.rotation.y = roomData[1]+PI
+	if randf_range(0,1)<spawn_rate:
+		var soul_eater = SOUL_EATER.instantiate()
+		add_child(soul_eater)
+		soul_eater.position = newPos+Vector3(0,2,0)
 	
 var dead_end_count = 0
 var staircase_instantiated : bool = false
@@ -159,7 +185,7 @@ func generateDeadEnd(tilePos : Vector3i) -> Tile:
 		tile.left = left_tile.right
 	if countOpenings(tile)==1:
 		dead_end_count+=1
-		if dead_end_count == 1 && !staircase_instantiated:
+		if dead_end_count == 2 && !staircase_instantiated:
 			tile.staircase = true
 			nextLevelSeed = tilePos+Vector3i(0,1,0)
 			staircase_instantiated = true

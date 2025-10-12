@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://duoeyw5tb8up1"]
+[gd_scene load_steps=8 format=3 uid="uid://duoeyw5tb8up1"]
 
 [ext_resource type="Script" uid="uid://r3g60x38cyi5" path="res://Player/player_character.gd" id="1_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://cf6avovs8sqwg" path="res://Scenes/breath.tscn" id="2_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://0hor0j7agmju" path="res://Scenes/crucifix.tscn" id="2_cvnsp"]
 [ext_resource type="AudioStream" uid="uid://b8rts6ce1ttg2" path="res://assets/sounds/single-church-bell-2-352062.mp3" id="4_vgqql"]
 [ext_resource type="AudioStream" uid="uid://cxh08j4qhbsq7" path="res://assets/sounds/retro-hurt-2-236675.mp3" id="5_fkybt"]
+[ext_resource type="AudioStream" uid="uid://boc6gckj3dreq" path="res://assets/sounds/monk-chant-fantasy-23137.mp3" id="6_x3wgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
 
@@ -39,3 +40,8 @@ pitch_scale = 0.58
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_fkybt")
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_x3wgy")
+volume_db = -6.232
+parameters/looping = true

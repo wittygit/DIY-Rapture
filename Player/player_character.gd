@@ -17,6 +17,7 @@ var crucifix_base_pos : Vector3
 @export var crucifix_snapiness : float = 8
 @export var crucifix_speed : float = 6
 @export var look_snapiness : float = 5
+const RESTART = preload("uid://bbsqxsle31m3d")
 
 @onready var tripod = $Tripod
 @onready var cam = $Tripod/Camera3D
@@ -44,14 +45,27 @@ var health: float = 20
 var health_smoothed : float
 
 var look_force : Vector2
+var rapturing: bool = false
 
 const RAY_LENGTH : float = 2
+@onready var collision_shape: CollisionShape3D = $CollisionShape3D
+@onready var ambience: AudioStreamPlayer = $AudioStreamPlayer3
 
 var current_floor : int = 1
 
 func _ready():
 	crucifix_base_pos = crucifix_pivot.position
+	await get_tree().create_timer(30).timeout
+	ambience.play()
 
+
+func rapture():
+	rapturing = true
+	collision_layer = 5
+	collision_mask = 5
+	collision_shape.disabled = true
+	ambience.stop()
+	
 
 func _physics_process(delta):
 	health_smoothed = lerp(health_smoothed,health,delta*20)
@@ -76,6 +90,10 @@ func _physics_process(delta):
 	
 	aimCrucifix(delta)
 	aimHead(delta)
+	if rapturing:
+		velocity+=Vector3(0,1,0)*.3*delta
+		move_and_slide()
+		return
 	
 	if not is_on_floor():
 		velocity += gravity * delta
@@ -132,6 +150,8 @@ func Die():
 	health = -100
 	bell.playing = true
 	console.SendMessage("Left behind, forgotten.", 3.0, Color.DARK_RED)
+	await get_tree().create_timer(4).timeout
+	get_tree().change_scene_to_file("res://Scenes/restart.tscn")
 
 	
 func handleInput():
@@ -174,4 +194,3 @@ func raycast() -> Dictionary:
 	var query = PhysicsRayQueryParameters3D.create(origin, end)
 	
 	return space_state.intersect_ray(query)
-	

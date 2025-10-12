@@ -1,10 +1,12 @@
 extends RigidBody3D
 class_name Enemy
 
-@onready var player : Player = %Player
+
+@onready var player : Player = $/root/Main/ColorRect/SubViewport/Player
+
 @onready var animation_player = $AnimationPlayer
 
-var speed : float = 9
+var speed : float = 10
 var direction : Vector3
 var look_direction : Vector3
 var is_withered : bool = false
@@ -15,6 +17,7 @@ var distance : float
 var targetPos : Vector3
 var raycastDistance = 400
 
+@onready var sizzle: AudioStreamPlayer = $AudioStreamPlayer
 
 func _ready():
 	targetPos = position
@@ -27,20 +30,23 @@ func _physics_process(delta):
 	if linear_velocity.length() > speed:
 		linear_velocity = linear_velocity.normalized() * speed
 	if randf_range(0,1)>.05:return
-	distance = player.global_position.distance_squared_to(global_position)
-	look_direction = (player.global_position+Vector3(0,.5,0) - global_position).normalized()
+	if player:
+		distance = player.global_position.distance_squared_to(global_position)
+		look_direction = (player.global_position+Vector3(0,.5,0) - global_position).normalized()
 	if !is_withered:
 		if distance<raycastDistance:
 			var hit : Dictionary = raycast()
-			if hit.collider is Player:
-				print (hit.collider)
-				targetPos = hit.position
+			if hit:
+				if hit.collider is Player:
+					print (hit.collider)
+					targetPos = hit.position
 			direction = (targetPos - global_position).normalized()
 	
 		
 func Wither(seconds : float):
 	if is_withered: return
 	is_withered = true
+	sizzle.play()
 	#constant_force = -constant_force;
 	animation_player.play("wither",0.25)
 	await get_tree().create_timer(seconds).timeout

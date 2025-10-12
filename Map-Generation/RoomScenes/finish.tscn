@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://de1n51pmw2tcw"]
+
+[ext_resource type="PackedScene" uid="uid://dmj5rtnq6qxq1" path="res://assets/models/church.tscn" id="1_dw4gy"]
+[ext_resource type="Script" uid="uid://dufxk3nqt68co" path="res://Map-Generation/RoomScenes/finish.gd" id="1_lvfll"]
+[ext_resource type="PackedScene" uid="uid://bhefb013fbjt4" path="res://Scenes/monk.tscn" id="3_8x6ns"]
+[ext_resource type="AudioStream" uid="uid://c6nbjjxqd6nis" path="res://assets/sounds/creepy-church-bell-33827.mp3" id="4_0v5ku"]
+[ext_resource type="AudioStream" uid="uid://m62nfplgy8co" path="res://assets/sounds/post-rapture silly.wav" id="5_v3qwv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8x6ns"]
+size = Vector3(7.2611237, 4.6088867, 2.8809814)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0v5ku"]
+size = Vector3(11.374023, 0.67858887, 18.875977)
+
+[node name="finish" type="Node3D" node_paths=PackedStringArray("monks")]
+script = ExtResource("1_lvfll")
+monks = [NodePath("Monk"), NodePath("Monk2"), NodePath("Monk3"), NodePath("Monk4"), NodePath("Monk5")]
+
+[node name="church" parent="." instance=ExtResource("1_dw4gy")]
+transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.3711385e-08, -2.68925, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="church"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.634732, 0)
+light_energy = 9.854
+omni_range = 10.538182
+
+[node name="Area3D" type="Area3D" parent="church/OmniLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0992692e-07, -8.053013, 7.0903025)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="church/OmniLight3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0359268, 1.9518185, 0.9404907)
+shape = SubResource("BoxShape3D_8x6ns")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="church"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="church/StaticBody3D"]
+transform = Transform3D(0.99997693, 0, 3.659295e-13, 0, 1, 0, -3.659295e-13, 0, 0.99997693, -0.023179706, -0.16070557, -1.1381406)
+shape = SubResource("BoxShape3D_0v5ku")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="church"]
+transform = Transform3D(0.24012634, 0.9707413, 3.3215116e-08, -0.9707416, 0.24012643, 4.2432465e-08, 3.3215105e-08, -4.2432447e-08, 0.99999964, -2.9868221, 4.9472733, 2.3841858e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="church/StaticBody3D3"]
+transform = Transform3D(0.99997693, 0, 3.659295e-13, 0, 1, 0, -3.659295e-13, 0, 0.99997693, -0.023179706, -0.16070557, -1.1381406)
+shape = SubResource("BoxShape3D_0v5ku")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="church"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="church/StaticBody3D2"]
+transform = Transform3D(0.040811002, -0.99916655, 4.192648e-08, 0.9991438, 0.04081196, -4.367359e-08, 4.192609e-08, 4.3674955e-08, 0.99997663, 2.4299734, 5.3630505, -1.1381402)
+shape = SubResource("BoxShape3D_0v5ku")
+
+[node name="Monk" parent="." instance=ExtResource("3_8x6ns")]
+transform = Transform3D(0.04656598, 0, -0.99891526, 0, 1, 0, 0.99891526, 0, 0.04656598, 2.8381538, 2.7145195, -0.08585715)
+
+[node name="Monk2" parent="." instance=ExtResource("3_8x6ns")]
+transform = Transform3D(0.39681146, 0, -0.91790015, 0, 1, 0, 0.91790015, 0, 0.39681146, -6.081424, 0.07658434, -3.3412728)
+
+[node name="Monk3" parent="." instance=ExtResource("3_8x6ns")]
+transform = Transform3D(-0.5135861, 0, -0.85803807, 0, 1, 0, 0.85803807, 0, -0.5135861, -3.4134831, 0.48207426, 2.534929)
+
+[node name="Monk4" parent="." instance=ExtResource("3_8x6ns")]
+transform = Transform3D(0.6078749, 0, -0.79403275, 0, 1, 0, 0.79403275, 0, 0.6078749, -3.6014135, 0.055217743, -2.9741387)
+
+[node name="Monk5" parent="." instance=ExtResource("3_8x6ns")]
+transform = Transform3D(-0.7398543, 0, -0.67276716, 0, 1, 0, 0.67276716, 0, -0.7398543, -6.9401627, 0.063676834, 2.4306154)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_0v5ku")
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_v3qwv")
+
+[connection signal="body_entered" from="church/OmniLight3D/Area3D" to="." method="_on_area_3d_body_entered"]

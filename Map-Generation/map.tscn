@@ -1,24 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbq1chcqohu3h"]
+[gd_scene load_steps=2 format=3 uid="uid://dbq1chcqohu3h"]
 
 [ext_resource type="Script" uid="uid://nrc6t7abkk8" path="res://Map-Generation/Generation.gd" id="1_as4rn"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_as4rn"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_7gl8m"]
-sky_material = SubResource("ProceduralSkyMaterial_as4rn")
-
-[sub_resource type="Environment" id="Environment_mkys0"]
-background_mode = 2
-sky = SubResource("Sky_7gl8m")
-tonemap_mode = 2
-glow_enabled = true
-
 [node name="Map" type="Node3D"]
 script = ExtResource("1_as4rn")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_mkys0")
-
-[node name="Camera3D" type="Camera3D" parent="."]
