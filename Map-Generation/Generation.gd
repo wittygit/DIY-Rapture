@@ -9,6 +9,8 @@ const ROOM_WIDTH : int = 22
 func _ready() -> void:
 	generateMapLevel()
 	instantiateMap()
+	print(Tile.new(0,0,0,1,0,0).Value())
+	print(Tile.new(1,0,0,0,0,0,true).Value())
 
 enum directions {
 	FORWARD,
@@ -18,7 +20,6 @@ enum directions {
 	UP,
 	DOWN
 }
-
 const DEAD_END = preload("uid://dmg46f186pfe4")
 const RIGHT_BACK = preload("uid://d1nkqumaerivr")
 const FORWARD_LEFT_RIGHT = preload("uid://cc5i1n1q0jxkm")
@@ -147,10 +148,10 @@ func generateDeadEnd(tilePos : Vector3i) -> Tile:
 		tile.left = left_tile.right
 	if countOpenings(tile)==1:
 		dead_end_count+=1
-	if dead_end_count == 2 &&countOpenings(tile)==1:
-		tile.staircase = true
-	nextLevelSeed = tilePos+Vector3i(0,1,0)
-	staircase_instantiated = true
+		if dead_end_count == 2 && !staircase_instantiated:
+			tile.staircase = true
+			nextLevelSeed = tilePos+Vector3i(0,1,0)
+			staircase_instantiated = true
 	tile.Cement()
 	return tile
 
@@ -236,8 +237,11 @@ func printMap(height:int,width:int,level:int):
 func printTile(pos : Vector3i) -> String:
 	var tile = map.get(pos)
 	
+	
 	if tile == null:
 		return "    "
+	if tile.staircase == true:
+		return "star"
 	var tileString: String = ""
 	if tile.left == 1: tileString+="←" 
 	else: tileString+="_" 

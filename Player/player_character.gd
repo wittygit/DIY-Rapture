@@ -32,9 +32,9 @@ var bobAmp = 0.06
 var bobTime: float = 0
 var baseFov = 80
 
-var messages = ["The Rapture begins.","I have been Foresaken.","I must ascend through the darkness to reach The Light.","Reach the fifth floor to Rapture yourself and rejoin your Order."]
+var messages = ["The Rapture begins.","Alas, I have been Foresaken.","I must ascend through the darkness to reach The Light.","Climb to the fifth floor to Rapture yourself and rejoin your Order.", "Use the left button to move forward and hold the right button to defend yourself."]
 var current_message = 0
-var message_duration : float = 5
+var message_duration : float = 6
 var time : float = 0
 var crucifix_global_goal_rot : Vector3 = Vector3.FORWARD
 

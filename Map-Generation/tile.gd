@@ -30,5 +30,5 @@ func Print():
 	print(str(forward) + ' ' + str(back) + ' ' + str(left) + ' ' + str(right))
 
 func Value()->int:
-	return forward+1+(1+back*10)+(1+left*100)+(1+right*1000)+(1+up*10000)+(1+down*100000)+int(staircase)*999
+	return forward+(back*10)+(left*100)+(right*1000)+(up*10000)+(down*100000)+int(staircase)*998
 	
