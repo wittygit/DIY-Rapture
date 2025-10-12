@@ -8,9 +8,9 @@ const ROOM_WIDTH : int = 22
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	generateMapLevel()
-	instantiateMap()
-	print(Tile.new(0,0,0,1,0,0).Value())
-	print(Tile.new(1,0,0,0,0,0,true).Value())
+	await instantiateMap()
+	generateMapLevel()
+	await instantiateMap()
 
 enum directions {
 	FORWARD,
@@ -57,6 +57,7 @@ func instantiateMap():
 			continue;
 		instantiateTile(tile, pos)
 		await get_tree().process_frame
+	map.clear()
 
 func instantiateTile(tile : Tile, pos : Vector3i):
 	var roomData = RoomScenes.get(tile.Value())
@@ -67,19 +68,21 @@ func instantiateTile(tile : Tile, pos : Vector3i):
 	add_child(room)
 	var floor = FLOOR.instantiate()
 	add_child(floor)
-	floor.position = pos*ROOM_WIDTH*Vector3i(-1,1,1)
-	room.position = pos*ROOM_WIDTH*Vector3i(-1,1,1)
+	var newPos : Vector3 = Vector3(pos)*ROOM_WIDTH*Vector3(-1,.8,1)
+	floor.position = newPos
+	room.position = newPos
 	room.rotation.y = roomData[1]+PI
 	
 var dead_end_count = 0
 var staircase_instantiated : bool = false
 var nextLevelSeed : Vector3i = Vector3i(0,0,-1)
 var pastLevelSeed : Vector3i = Vector3i(0,0,-1)
+var nextLevelOrientation : Tile = Tile.new(1,0,0,0,0,0)
+
 func generateMapLevel():
 	dead_end_count = 0
 	staircase_instantiated = false
-	var originTile : Tile = Tile.new()
-	originTile.forward = 1
+	var originTile : Tile = nextLevelOrientation
 	originTile.Cement()
 	map[nextLevelSeed] = originTile
 	pastLevelSeed = nextLevelSeed
@@ -87,7 +90,7 @@ func generateMapLevel():
 	if !staircase_instantiated:
 		clearLevel()
 		generateMapLevel()
-	printMap(10,10,0)
+	printMap(10,10,pastLevelSeed.y)
 
 func clearLevel():
 	var positions = map.keys()
@@ -152,6 +155,10 @@ func generateDeadEnd(tilePos : Vector3i) -> Tile:
 			tile.staircase = true
 			nextLevelSeed = tilePos+Vector3i(0,1,0)
 			staircase_instantiated = true
+			if tile.forward: nextLevelOrientation = Tile.new(0,1,0,0,0,0)
+			if tile.back: nextLevelOrientation = Tile.new(1,0,0,0,0,0)
+			if tile.left: nextLevelOrientation = Tile.new(0,0,0,1,0,0)
+			if tile.right: nextLevelOrientation = Tile.new(0,0,1,0,0,0)
 	tile.Cement()
 	return tile
 
