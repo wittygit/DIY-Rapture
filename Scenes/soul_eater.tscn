@@ -1,6 +1,5 @@
-[gd_scene load_steps=12 format=4 uid="uid://bolotmbmoe3g8"]
+[gd_scene load_steps=11 format=4 uid="uid://bolotmbmoe3g8"]
 
-[ext_resource type="PackedScene" uid="uid://jfvsgo0737lr" path="res://Scenes/area_3d.tscn" id="2_5g7b3"]
 [ext_resource type="Script" uid="uid://dsjhbarnnbls7" path="res://Scenes/enemy.gd" id="2_mtaxl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xdxe7"]
@@ -1380,7 +1379,5 @@ autoplay = "chasing"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5706997, 0)
 shape = SubResource("CapsuleShape3D_mtaxl")
-
-[node name="Area3D" parent="." instance=ExtResource("2_5g7b3")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

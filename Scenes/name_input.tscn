@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvvgh01sdwx5x"]
+
+[ext_resource type="Script" uid="uid://bn8is85qxlim3" path="res://NameInput.gd" id="1_d2tbu"]
+[ext_resource type="Texture2D" uid="uid://d0kwgf0ff6sgm" path="res://assets/textures/font_texture.tres" id="2_20j64"]
+
+[node name="NameInput" type="Control" node_paths=PackedStringArray("alphabet_letter_1", "alphabet_letter_2", "alphabet_letter_3", "alphabet_letter_end")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d2tbu")
+alphabet_letter_1 = NodePath("HBoxContainer/Sprite2D")
+alphabet_letter_2 = NodePath("HBoxContainer/Sprite2D2")
+alphabet_letter_3 = NodePath("HBoxContainer/Sprite2D3")
+alphabet_letter_end = NodePath("HBoxContainer/Sprite2D4")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Raptured Souls: 1000"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.386
+anchor_right = 1.0
+anchor_bottom = 0.648
+offset_top = 1.871994
+offset_bottom = 3.0960083
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer"]
+texture = ExtResource("2_20j64")
+hframes = 10
+vframes = 3
+
+[node name="Sprite2D2" type="Sprite2D" parent="HBoxContainer"]
+texture = ExtResource("2_20j64")
+hframes = 10
+vframes = 3
+
+[node name="Sprite2D3" type="Sprite2D" parent="HBoxContainer"]
+texture = ExtResource("2_20j64")
+hframes = 10
+vframes = 3
+
+[node name="Sprite2D4" type="Sprite2D" parent="HBoxContainer"]
+texture = ExtResource("2_20j64")
+hframes = 10
+vframes = 3

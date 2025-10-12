@@ -2,12 +2,12 @@ extends Node3D
 
 
 var map : Dictionary
-const MAX_DEPTH : int = 15
+const MAX_DEPTH : int = 5
 const ROOM_WIDTH : int = 22
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	generateMap()
+	generateMapLevel()
 	instantiateMap()
 
 enum directions {
@@ -19,10 +19,12 @@ enum directions {
 	DOWN
 }
 
-const FORWARD_BACK = preload("uid://bfrkqssu0yo6j")
+const DEAD_END = preload("uid://dmg46f186pfe4")
 const RIGHT_BACK = preload("uid://d1nkqumaerivr")
 const FORWARD_LEFT_RIGHT = preload("uid://cc5i1n1q0jxkm")
 const FLOOR = preload("uid://drnavsturj7tx")
+const FORWARD_BACK = preload("uid://decxof6mo5tym")
+const STAIRS = preload("uid://bfrkqssu0yo6j")
 
 var RoomScenes : Dictionary = {
 	Tile.new(1,1,0,0,0,0).Value(): [FORWARD_BACK,0],
@@ -34,7 +36,15 @@ var RoomScenes : Dictionary = {
 	Tile.new(1,0,1,1,0,0).Value(): [FORWARD_LEFT_RIGHT,0],
 	Tile.new(1,1,1,0,0,0).Value(): [FORWARD_LEFT_RIGHT,PI/2],
 	Tile.new(0,1,1,1,0,0).Value(): [FORWARD_LEFT_RIGHT,PI],
-	Tile.new(1,1,0,1,0,0).Value(): [FORWARD_LEFT_RIGHT,-PI/2]
+	Tile.new(1,1,0,1,0,0).Value(): [FORWARD_LEFT_RIGHT,-PI/2],
+	Tile.new(1,0,0,0,0,0).Value(): [DEAD_END,0],
+	Tile.new(0,1,0,0,0,0).Value(): [DEAD_END,0],
+	Tile.new(0,0,1,0,0,0).Value(): [DEAD_END,0],
+	Tile.new(0,0,0,1,0,0).Value(): [DEAD_END,0],
+	Tile.new(1,0,0,0,0,0,true).Value(): [STAIRS,PI],
+	Tile.new(0,1,0,0,0,0,true).Value(): [STAIRS,0],
+	Tile.new(0,0,1,0,0,0,true).Value(): [STAIRS,-PI/2],
+	Tile.new(0,0,0,1,0,0,true).Value(): [STAIRS,PI/2]
 }
 
 
@@ -42,6 +52,8 @@ var RoomScenes : Dictionary = {
 func instantiateMap():
 	for pos in map:
 		var tile = map[pos]
+		if pos == pastLevelSeed:
+			continue;
 		instantiateTile(tile, pos)
 		await get_tree().process_frame
 
@@ -58,15 +70,36 @@ func instantiateTile(tile : Tile, pos : Vector3i):
 	room.position = pos*ROOM_WIDTH*Vector3i(-1,1,1)
 	room.rotation.y = roomData[1]+PI
 	
-
-func generateMap():
+var dead_end_count = 0
+var staircase_instantiated : bool = false
+var nextLevelSeed : Vector3i = Vector3i(0,0,-1)
+var pastLevelSeed : Vector3i = Vector3i(0,0,-1)
+func generateMapLevel():
+	dead_end_count = 0
+	staircase_instantiated = false
 	var originTile : Tile = Tile.new()
 	originTile.forward = 1
 	originTile.Cement()
-	map[Vector3i(0,0,-1)] = originTile
-	
-	generateSurrounding(Vector3i(0,0,-1),originTile,0)
-	printMap(20,10,0)
+	map[nextLevelSeed] = originTile
+	pastLevelSeed = nextLevelSeed
+	generateSurrounding(nextLevelSeed,originTile,nextLevelSeed.y)
+	if !staircase_instantiated:
+		clearLevel()
+		generateMapLevel()
+	printMap(10,10,0)
+
+func clearLevel():
+	var positions = map.keys()
+	var level: int = positions[-1][1]
+	for i in range(positions.size()):
+		if positions[-1].y == level:
+			var position = positions[-1]
+			positions.remove_at(-1)
+			map.erase(position)
+		else:
+			break
+	print("level erased!")
+		
 
 func generateSurrounding(pos : Vector3i,tile : Tile, depth : int):
 	var newTiles = []
@@ -112,7 +145,12 @@ func generateDeadEnd(tilePos : Vector3i) -> Tile:
 	var left_tile = map.get(tilePos+Vector3i(-1,0,0))
 	if(left_tile != null):
 		tile.left = left_tile.right
-		
+	if countOpenings(tile)==1:
+		dead_end_count+=1
+	if dead_end_count == 2 &&countOpenings(tile)==1:
+		tile.staircase = true
+	nextLevelSeed = tilePos+Vector3i(0,1,0)
+	staircase_instantiated = true
 	tile.Cement()
 	return tile
 

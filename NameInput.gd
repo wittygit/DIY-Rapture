@@ -1,0 +1,92 @@
+extends Control
+
+@export var alphabet_letter_1: Sprite2D
+@export var alphabet_letter_2: Sprite2D
+@export var alphabet_letter_3: Sprite2D
+@export var alphabet_letter_end: Sprite2D
+
+# REPLACE THIS WITH YOUR OWN INPUTS
+var input_event_next_letter:= "lookUp"
+var input_event_previous_letter:= "lookDown"
+var input_event_accept:= "crucifix"
+var input_event_reset:= "forward"
+
+# REMEMBERING WHAT YOU SELECTED
+var input_name_array: Array
+# STORING THE SELECTION INTO A SINGLE NAME
+var input_name: String
+
+# THE CURRENTLY SELECTED CHARACTER
+var current_letter_selected: int = 0
+# THE FRAME OF THE "END" SPRITE ON THE SPRITE SHEET
+var end_sprite_index: int = 37
+
+# EACH CHARACTER INDEX IN THE ARRAY CORRESP0NDS TO THE FRAME NUMBER OF THAT CHARACTER ON THE SPRITE SHEET
+var letter_index_array:= ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9", " "]
+
+
+func _ready() -> void:
+	alphabet_letter_end.visible = false
+
+
+func _process(_delta: float) -> void:
+	# MOVE TO NEXT CHARACTER
+	if input_name_array.size() == 0:
+		show_letter_on_screen(alphabet_letter_1, current_letter_selected)
+		show_letter_on_screen(alphabet_letter_2, 0)
+		show_letter_on_screen(alphabet_letter_3, 0)
+		
+	if input_name_array.size() == 1:
+		show_letter_on_screen(alphabet_letter_1, input_name_array[0])
+		show_letter_on_screen(alphabet_letter_2, current_letter_selected)
+		show_letter_on_screen(alphabet_letter_3, 0)
+		
+	if input_name_array.size() == 2:
+		show_letter_on_screen(alphabet_letter_1, input_name_array[0])
+		show_letter_on_screen(alphabet_letter_2, input_name_array[1])
+		show_letter_on_screen(alphabet_letter_3, current_letter_selected)
+	
+	if input_name_array.size() == 3:
+		show_letter_on_screen(alphabet_letter_1, input_name_array[0])
+		show_letter_on_screen(alphabet_letter_2, input_name_array[1])
+		show_letter_on_screen(alphabet_letter_3, input_name_array[2])
+		alphabet_letter_end.visible = true
+
+
+
+	if Input.is_action_just_pressed(input_event_previous_letter):
+		if current_letter_selected == 0:
+			current_letter_selected = letter_index_array.size() - 1
+		elif current_letter_selected > 0 && current_letter_selected < letter_index_array.size():
+			current_letter_selected -= 1
+	
+
+
+	if Input.is_action_just_pressed(input_event_next_letter):
+		if current_letter_selected < letter_index_array.size() - 1:
+			current_letter_selected += 1
+		elif current_letter_selected == letter_index_array.size() - 1:
+			current_letter_selected = 0
+
+
+	if Input.is_action_just_pressed(input_event_accept):
+		if input_name_array.size() <= 3:
+			input_name_array.append(current_letter_selected)
+			current_letter_selected = 0
+	
+		if alphabet_letter_end.visible == true:
+			input_name = get_input_name()
+			print("NAME: ", input_name)
+			alphabet_letter_end.visible = false
+	
+	if Input.is_action_just_pressed(input_event_reset):
+		clear_name()
+
+func clear_name() -> void:
+	input_name_array.clear()
+
+func show_letter_on_screen(alphabet_letter: Sprite2D, index: int) -> void:
+	alphabet_letter.set_frame(index)
+
+func get_input_name() -> String:
+	return letter_index_array[input_name_array[0]] + letter_index_array[input_name_array[1]] + letter_index_array[input_name_array[2]]

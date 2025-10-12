@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfrkqssu0yo6j"]
+[gd_scene load_steps=4 format=3 uid="uid://decxof6mo5tym"]
 
 [ext_resource type="Material" uid="uid://cpdkdimmgpkt" path="res://Map-Generation/RoomScenes/room_material.tres" id="1_s808p"]
 [ext_resource type="ArrayMesh" uid="uid://cygk6mwunsyt" path="res://Map-Generation/ChurchlModels/rooms/line_hall.obj" id="2_mcbmt"]
@@ -9,7 +9,7 @@ data = PackedVector3Array(-84.9507, 4.4825, -10.7816, -84.9507, 0.0028, -10.7816
 [node name="ForwardBack" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 0, 0)
+transform = Transform3D(0.9999998, 0, 0, 0, 1, 0, 0, 0, 0.9999998, 82.5, 0, 0)
 material_override = ExtResource("1_s808p")
 mesh = ExtResource("2_mcbmt")
 

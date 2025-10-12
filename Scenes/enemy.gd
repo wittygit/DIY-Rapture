@@ -17,7 +17,7 @@ func _ready():
 	max_contacts_reported = 1
 	
 func _physics_process(delta):
-	direction = player.position - position
+	direction = player.global_position - global_position
 	direction = direction.normalized()
 	if !is_withered:
 		var hit : Dictionary = raycast()
@@ -40,7 +40,7 @@ func _on_body_entered(body):
 		
 func raycast() -> Dictionary:
 	var space_state = get_world_3d().direct_space_state
-	var origin = global_position
+	var origin = position
 	var end = position - direction * RAY_LENGTH
 	var query = PhysicsRayQueryParameters3D.create(origin, end)
 	

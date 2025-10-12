@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmg46f186pfe4"]
+
+[ext_resource type="Material" uid="uid://cpdkdimmgpkt" path="res://Map-Generation/RoomScenes/room_material.tres" id="1_fopxt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j7cio"]
+size = Vector3(22, 7, 22)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fopxt"]
+size = Vector3(22, 7, 22)
+
+[node name="ForwardBack" type="Node3D"]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.999158, 0)
+material_override = ExtResource("1_fopxt")
+mesh = SubResource("BoxMesh_j7cio")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.999, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.016862, 0)
+shape = SubResource("BoxShape3D_fopxt")
