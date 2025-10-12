@@ -9,7 +9,7 @@ data = PackedVector3Array(-2.5449, 4.4825, -49.8101, -2.5449, 0.0028, -49.8101, 
 [node name="ForwardBack" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 40, 0, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 39.1, 0, 0)
 material_override = ExtResource("1_t60y0")
 mesh = ExtResource("2_t60y0")
 
