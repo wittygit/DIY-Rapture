@@ -3,11 +3,12 @@ extends Node3D
 
 var map : Dictionary
 const MAX_DEPTH : int = 15
-
+const ROOM_WIDTH : int = 22
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	generateMap()
+	instantiateMap()
 
 enum directions {
 	FORWARD,
@@ -18,11 +19,52 @@ enum directions {
 	DOWN
 }
 
+const FORWARD_BACK = preload("uid://bfrkqssu0yo6j")
+const RIGHT_BACK = preload("uid://d1nkqumaerivr")
+const FORWARD_LEFT_RIGHT = preload("uid://cc5i1n1q0jxkm")
+const FLOOR = preload("uid://drnavsturj7tx")
+
+var RoomScenes : Dictionary = {
+	Tile.new(1,1,0,0,0,0).Value(): [FORWARD_BACK,0],
+	Tile.new(0,0,1,1,0,0).Value(): [FORWARD_BACK,PI/2],
+	Tile.new(0,1,0,1,0,0).Value(): [RIGHT_BACK,0],
+	Tile.new(1,0,0,1,0,0).Value(): [RIGHT_BACK,PI/2],
+	Tile.new(1,0,1,0,0,0).Value(): [RIGHT_BACK,PI],
+	Tile.new(0,1,1,0,0,0).Value(): [RIGHT_BACK,-PI/2],
+	Tile.new(1,0,1,1,0,0).Value(): [FORWARD_LEFT_RIGHT,0],
+	Tile.new(1,1,1,0,0,0).Value(): [FORWARD_LEFT_RIGHT,PI/2],
+	Tile.new(0,1,1,1,0,0).Value(): [FORWARD_LEFT_RIGHT,PI],
+	Tile.new(1,1,0,1,0,0).Value(): [FORWARD_LEFT_RIGHT,-PI/2]
+}
+
+
+
+func instantiateMap():
+	for pos in map:
+		var tile = map[pos]
+		instantiateTile(tile, pos)
+		await get_tree().process_frame
+
+func instantiateTile(tile : Tile, pos : Vector3i):
+	var roomData = RoomScenes.get(tile.Value())
+	if roomData == null:
+		print(tile)
+		return
+	var room = roomData[0].instantiate()
+	add_child(room)
+	var floor = FLOOR.instantiate()
+	add_child(floor)
+	floor.position = pos*ROOM_WIDTH*Vector3i(-1,1,1)
+	room.position = pos*ROOM_WIDTH*Vector3i(-1,1,1)
+	room.rotation.y = roomData[1]+PI
+	
+
 func generateMap():
 	var originTile : Tile = Tile.new()
 	originTile.forward = 1
-	map[Vector3i(0,0,-1)] = originTile
 	originTile.Cement()
+	map[Vector3i(0,0,-1)] = originTile
+	
 	generateSurrounding(Vector3i(0,0,-1),originTile,0)
 	printMap(20,10,0)
 
