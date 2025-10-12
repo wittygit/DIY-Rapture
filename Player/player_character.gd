@@ -1,6 +1,7 @@
 extends CharacterBody3D
 class_name Player
 @onready var crucifix_pivot = $Tripod/crucifixPivot
+@onready var bell: AudioStreamPlayer = $AudioStreamPlayer
 
 @onready var crucifix : Crucifix = $Tripod/crucifixPivot/crucifix
 
@@ -41,6 +42,8 @@ var crucifix_global_goal_rot : Vector3 = Vector3.FORWARD
 var look_force : Vector2
 
 const RAY_LENGTH : float = 2
+
+var current_floor : int = 1
 
 func _ready():
 	crucifix_base_pos = crucifix_pivot.position
@@ -102,7 +105,11 @@ func head_bob(time) -> Vector3:
 	pos.y = sin(time * bobFreq) * bobAmp
 	pos.x = cos(time * bobFreq/2) * bobAmp
 	return pos
-	
+
+func NextFloor():
+	current_floor +=1
+	console.SendMessage("Floor "+str(current_floor), 5)
+	bell.playing = true
 
 func handleInput():
 	look_force.x = Input.get_axis("lookRight", "lookLeft")

@@ -1,6 +1,5 @@
 extends Node3D
-@onready var player: Player = %Player
-
+var triggered : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,3 +9,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body is Player && !triggered:
+		body.NextFloor()
+		triggered = true

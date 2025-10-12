@@ -38,7 +38,7 @@ radial_segments = 12
 rings = 0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_od3dk"]
-height = 2.539065
+height = 3.4501965
 radius = 0.3251953
 
 [node name="crucifix" type="Node3D"]
@@ -62,7 +62,7 @@ mesh = SubResource("CylinderMesh_1tnsp")
 unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cone/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65894806, 1.8626451e-08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20338225, 2.0489097e-08)
 shape = SubResource("CylinderShape3D_od3dk")
 
 [node name="crucifixModel" parent="." instance=ExtResource("3_od3dk")]
@@ -90,3 +90,4 @@ omni_range = 0.403
 omni_attenuation = 0.8
 
 [connection signal="body_entered" from="Cone/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_shape_exited" from="Cone/Area3D" to="." method="_on_area_3d_body_shape_exited"]

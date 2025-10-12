@@ -1,34 +1,46 @@
 extends RigidBody3D
 class_name Enemy
 
-@onready var player : Player = %CharacterBody3D
+@onready var player : Player = %Player
 @onready var animation_player = $AnimationPlayer
-@onready var area_3d = $Area3D
 
-var speed : float = 10
+var speed : float = 9
 var direction : Vector3
+var look_direction : Vector3
 var is_withered : bool = false
 var isInArea: bool = false
 var target_pos : Vector3 
 var RAY_LENGTH: float = 100
+var distance : float
+var targetPos : Vector3
+var raycastDistance = 400
 
 func _ready():
+	targetPos = position
 	contact_monitor = true
 	max_contacts_reported = 1
 	
 func _physics_process(delta):
-	direction = player.global_position - global_position
-	direction = direction.normalized()
+	if !is_withered: apply_central_force(direction * speed)
+	else: apply_central_force(-direction * speed)
+	if linear_velocity.length() > speed:
+		linear_velocity = linear_velocity.normalized() * speed
+	if randf_range(0,1)>.05:return
+	distance = player.global_position.distance_squared_to(global_position)
+	look_direction = (player.global_position+Vector3(0,.5,0) - global_position).normalized()
 	if !is_withered:
-		var hit : Dictionary = raycast()
-		if hit:
+		if distance<raycastDistance:
+			var hit : Dictionary = raycast()
 			if hit.collider is Player:
 				print (hit.collider)
-		constant_force = direction*speed
+				targetPos = hit.position
+			direction = (targetPos - global_position).normalized()
+	
 		
 func Wither(seconds : float):
+	if is_withered: return
 	is_withered = true
-	constant_force = -constant_force;
+	#constant_force = -constant_force;
 	animation_player.play("wither",0.25)
 	await get_tree().create_timer(seconds).timeout
 	animation_player.play("chasing", 0.25)
@@ -40,8 +52,9 @@ func _on_body_entered(body):
 		
 func raycast() -> Dictionary:
 	var space_state = get_world_3d().direct_space_state
-	var origin = position
-	var end = position - direction * RAY_LENGTH
+	var origin = global_position+ Vector3(0, .5, 0)
+	var end = origin+look_direction * RAY_LENGTH
 	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	query.exclude = [self]
 	
 	return space_state.intersect_ray(query)

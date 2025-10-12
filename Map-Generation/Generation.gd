@@ -2,7 +2,7 @@ extends Node3D
 
 
 var map : Dictionary
-const MAX_DEPTH : int = 5
+const MAX_DEPTH : int = 2
 const ROOM_WIDTH : int = 22
 
 # Called when the node enters the scene tree for the first time.
@@ -11,6 +11,11 @@ func _ready() -> void:
 	await instantiateMap()
 	generateMapLevel()
 	await instantiateMap()
+	generateMapLevel()
+	await instantiateMap()
+	generateMapLevel()
+	await instantiateMap()
+
 
 enum directions {
 	FORWARD,
@@ -151,14 +156,14 @@ func generateDeadEnd(tilePos : Vector3i) -> Tile:
 		tile.left = left_tile.right
 	if countOpenings(tile)==1:
 		dead_end_count+=1
-		if dead_end_count == 2 && !staircase_instantiated:
+		if dead_end_count == 1 && !staircase_instantiated:
 			tile.staircase = true
 			nextLevelSeed = tilePos+Vector3i(0,1,0)
 			staircase_instantiated = true
-			if tile.forward: nextLevelOrientation = Tile.new(0,1,0,0,0,0)
-			if tile.back: nextLevelOrientation = Tile.new(1,0,0,0,0,0)
-			if tile.left: nextLevelOrientation = Tile.new(0,0,0,1,0,0)
-			if tile.right: nextLevelOrientation = Tile.new(0,0,1,0,0,0)
+			if tile.forward == 1 : nextLevelOrientation = Tile.new(0,1,0,0,0,0)
+			if tile.back == 1: nextLevelOrientation = Tile.new(1,0,0,0,0,0)
+			if tile.left == 1: nextLevelOrientation = Tile.new(0,0,0,1,0,0)
+			if tile.right == 1: nextLevelOrientation = Tile.new(0,0,1,0,0,0)
 	tile.Cement()
 	return tile
 
