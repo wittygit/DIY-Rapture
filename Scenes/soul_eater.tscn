@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=4 uid="uid://bolotmbmoe3g8"]
 
 [ext_resource type="PackedScene" uid="uid://jfvsgo0737lr" path="res://Scenes/area_3d.tscn" id="2_5g7b3"]
-[ext_resource type="Script" path="res://Scenes/enemy.gd" id="2_mtaxl"]
+[ext_resource type="Script" uid="uid://dsjhbarnnbls7" path="res://Scenes/enemy.gd" id="2_mtaxl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xdxe7"]
 transparency = 1

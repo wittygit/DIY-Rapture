@@ -10,20 +10,20 @@ var direction : Vector3
 var is_withered : bool = false
 var isInArea: bool = false
 var target_pos : Vector3 
+var RAY_LENGTH: float = 100
 
 func _ready():
 	contact_monitor = true
 	max_contacts_reported = 1
-
+	
 func _physics_process(delta):
-	if isInArea:
-		target_pos = player.position - position
-		print("is in range")
-	if !isInArea:
-		print("out of range")
+	direction = player.position - position
+	direction = direction.normalized()
 	if !is_withered:
-		direction = target_pos
-		direction = direction.normalized()
+		var hit : Dictionary = raycast()
+		if hit:
+			if hit.collider is Player:
+				print (hit.collider)
 		constant_force = direction*speed
 		
 func Wither(seconds : float):
@@ -37,10 +37,11 @@ func Wither(seconds : float):
 func _on_body_entered(body):
 	if body is Player:
 		get_tree().change_scene_to_file("res://Scenes/death.tscn")
-func _on_area_3d_body_entered(body):
-	if body is Player:
-		isInArea = true
 		
-func _on_area_3d_body_exited(body):
-	if body is Player:
-		isInArea = false
+func raycast() -> Dictionary:
+	var space_state = get_world_3d().direct_space_state
+	var origin = global_position
+	var end = position - direction * RAY_LENGTH
+	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	
+	return space_state.intersect_ray(query)
