@@ -31,10 +31,6 @@ func beam():
 	light_cone_material.set("shader_parameter/feather_sharpness", 3*beamStrength)
 	
 func _on_area_3d_body_entered(body):
-<<<<<<< Updated upstream
-	if body is SoulEater and beamStrength > 0.3:
-		body.Wither(3)
-=======
+
 	if body is Enemy and beamStrength > 0.3:
 		await body.Wither(3)
->>>>>>> Stashed changes
