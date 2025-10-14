@@ -1,6 +1,5 @@
 extends Node3D
 
-
 var map : Dictionary
 var MAX_DEPTH : int = 5
 const ROOM_WIDTH : int = 22
