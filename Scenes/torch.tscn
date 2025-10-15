@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=4 uid="uid://bobsjivryecga"]
+[gd_scene load_steps=7 format=4 uid="uid://bobsjivryecga"]
 
 [ext_resource type="Texture2D" uid="uid://561ugip1nnpa" path="res://Map-Generation/deco/torch_torch.png" id="1_wced7"]
 
@@ -41,6 +41,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6r2pn")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wced7"]
+cull_mode = 2
+albedo_color = Color(0.52837735, 0, 0.11573381, 1)
+emission_enabled = true
+emission = Color(1, 0.25490198, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_h1t0l"]
+
 [node name="torch2" type="Node3D"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
@@ -48,3 +56,23 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 transform = Transform3D(0.2250061, 0.70799637, 0, -0.18179247, 0.87629324, 0, 0, 0, 0.2892685, 0, 0, 0)
 mesh = SubResource("ArrayMesh_l2s6o")
 skeleton = NodePath("")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.61150837, 0.7425474, 0)
+material_override = SubResource("StandardMaterial3D_wced7")
+lifetime = 0.91
+mesh = SubResource("QuadMesh_h1t0l")
+emission_shape = 1
+emission_sphere_radius = 1.0
+particle_flag_rotate_y = true
+spread = 180.0
+gravity = Vector3(0, 2, 0)
+initial_velocity_max = 0.2
+angular_velocity_min = -30.0
+angular_velocity_max = 242.82
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.1
+scale_amount_max = 0.5
+color = Color(1, 0.42745098, 0, 1)
+hue_variation_min = -0.39
