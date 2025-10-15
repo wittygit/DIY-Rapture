@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1nkqumaerivr"]
+[gd_scene load_steps=7 format=3 uid="uid://d1nkqumaerivr"]
 
 [ext_resource type="Material" uid="uid://cpdkdimmgpkt" path="res://Map-Generation/RoomScenes/room_material.tres" id="1_obw42"]
 [ext_resource type="ArrayMesh" uid="uid://wi3rcvcw7whf" path="res://Map-Generation/ChurchlModels/rooms/turn_hall.obj" id="2_n2e76"]
+[ext_resource type="PackedScene" uid="uid://bobsjivryecga" path="res://Scenes/torch.tscn" id="3_gbkq5"]
+[ext_resource type="PackedScene" uid="uid://dorwpfyr4kka" path="res://Scenes/rapture_barrel.tscn" id="4_mgw0p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_edqw0"]
 resource_local_to_scene = true
@@ -34,3 +36,18 @@ shape = SubResource("BoxShape3D_10nsf")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.4438, 1.9237366, -6.953684)
 shape = SubResource("BoxShape3D_10nsf")
+
+[node name="torch2" parent="." instance=ExtResource("3_gbkq5")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -2.1179185, 1.9893645, 8.646322)
+
+[node name="torch3" parent="." instance=ExtResource("3_gbkq5")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -2.1179185, 1.9893645, 2.0768883)
+
+[node name="torch4" parent="." instance=ExtResource("3_gbkq5")]
+transform = Transform3D(-1.0927847e-08, 0, -0.25, 0, 0.25, 0, 0.25, 0, -1.0927847e-08, 1.405335, 1.9893645, -2.2013884)
+
+[node name="torch5" parent="." instance=ExtResource("3_gbkq5")]
+transform = Transform3D(-1.0927847e-08, 0, -0.25, 0, 0.25, 0, 0.25, 0, -1.0927847e-08, 7.728559, 1.9893645, -2.2013884)
+
+[node name="Rapture_barrel" parent="." instance=ExtResource("4_mgw0p")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5893044, 0.9422051, -1.3888408)
