@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://dy3x5cf5tj01w"]
+[gd_scene load_steps=13 format=3 uid="uid://dy3x5cf5tj01w"]
 
+[ext_resource type="Script" uid="uid://6sp3vijxjpy0" path="res://Scenes/main.gd" id="1_6bp64"]
 [ext_resource type="Shader" uid="uid://cdgqeys20y125" path="res://Scenes/posterize.gdshader" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://duoeyw5tb8up1" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://bsf6mgeuymilu" path="res://assets/textures/sky_27_cubemap_2k/sky_27_2k.png" id="2_6bp64"]
@@ -59,6 +60,7 @@ volumetric_fog_albedo = Color(0.11119679, 0.11119687, 0.11119681, 1)
 volumetric_fog_emission = Color(0.06879826, 0.06879829, 0.068798244, 1)
 
 [node name="Main" type="Node"]
+script = ExtResource("1_6bp64")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_jjvhh")
