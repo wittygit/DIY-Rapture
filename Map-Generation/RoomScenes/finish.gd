@@ -14,7 +14,7 @@ var time : float = 0
 @onready var bells: AudioStreamPlayer = $AudioStreamPlayer
 @onready var env : WorldEnvironment = $/root/Main/ColorRect/SubViewport/WorldEnvironment
 @onready var song: AudioStreamPlayer = $AudioStreamPlayer2
-const RESTART = preload("uid://bbsqxsle31m3d")
+const ARCADENAME = preload("res://assets/letterNaming/arcade_wheel.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -43,8 +43,9 @@ func Rapture():
 		
 	player.rapture()
 	
-	await get_tree().create_timer(20).timeout
-	get_tree().root.add_child(RESTART.instantiate())
+	await get_tree().create_timer(5).timeout
+	player.can_look = false
+	get_tree().root.add_child(ARCADENAME.instantiate())
 	
 	
 	

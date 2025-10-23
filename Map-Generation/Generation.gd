@@ -9,18 +9,18 @@ var spawn_rate: float = .1
 func _ready() -> void:
 	generateMapLevel()
 	await instantiateMap()
-	spawn_rate +=.2
-	MAX_DEPTH = 5
-	generateMapLevel()
-	await instantiateMap()
-	MAX_DEPTH = 7
-	spawn_rate +=.2
-	generateMapLevel()
-	await instantiateMap()
-	MAX_DEPTH = 9
-	spawn_rate +=.2
-	generateMapLevel()
-	await instantiateMap()
+	#spawn_rate +=.2
+	#MAX_DEPTH = 5
+	#generateMapLevel()
+	#await instantiateMap()
+	#MAX_DEPTH = 7
+	#spawn_rate +=.2
+	#generateMapLevel()
+	#await instantiateMap()
+	#MAX_DEPTH = 9
+	#spawn_rate +=.2
+	#generateMapLevel()
+	#await instantiateMap()
 	generateChurch()
 
 

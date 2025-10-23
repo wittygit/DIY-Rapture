@@ -1,5 +1,5 @@
 extends Control
-
+@onready var player : Player = $/root/Main/ColorRect/SubViewport/Player
 # based on this post and adapted to gdscript : https://www.reddit.com/r/gamemaker/comments/18isrdj/entering_initials_for_high_score_list_arcade_style/
 # pixel font found here : https://frostyfreeze.itch.io/pixel-bitmap-fonts-png-xml
 
@@ -82,6 +82,8 @@ func _process(_delta: float) -> void:
 		if alphabet_letter_end.visible == true:
 			input_name = get_input_name()
 			print("NAME: ", input_name)
+			# get_tree().change_scene_to_file("res://Scenes/restart.tscn")
+			player.can_look = true
 			alphabet_letter_end.visible = false
 
 	if Input.is_action_just_pressed(input_event_delete):

@@ -188,9 +188,8 @@ offset_right = 356.0
 offset_bottom = 185.0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 20
-text = "use left stick/d-pad up/down to scroll through characters
-A (Xbox) / X (PS) to accept and move to next character
-B (xbox) / circle (PS) to move back
-Y (xbox) / triangle (PS) resets the entire thing
-on pressing END, the name gets printed to the debugger 
-and the END button is hidden from view"
+text = "You made it... you have been raptured.
+Cement your name in history, and enjoy
+the spoils of heaven... Congratulations."
+horizontal_alignment = 1
+vertical_alignment = 1

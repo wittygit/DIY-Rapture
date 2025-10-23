@@ -53,6 +53,8 @@ const RAY_LENGTH : float = 2
 
 var current_floor : int = 1
 
+var can_look : bool = true
+
 func _ready():
 	crucifix_base_pos = crucifix_pivot.position
 	await get_tree().create_timer(30).timeout
@@ -155,6 +157,8 @@ func Die():
 
 	
 func handleInput():
+	if(!can_look):
+		return
 	look_force.x = Input.get_axis("lookRight", "lookLeft")
 	look_force.y = Input.get_axis("lookUp", "lookDown")
 	
