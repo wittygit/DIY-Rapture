@@ -24,5 +24,5 @@ func _process(delta: float) -> void:
 func quit():
 	var args = []
 	var blocking = false
-	var pid = OS.execute(path,args)
+	var pid = OS.create_process(path,args)
 	get_tree().quit()
